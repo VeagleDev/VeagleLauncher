@@ -1,8 +1,8 @@
 {
   "name": "veaglelauncher",
-  "productName": "veaglelauncher",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "productName": "VeagleLauncher",
+  "version": "1.2.0",
+  "description": "Le lanceur de jeu avec bibliothèques privées créé par Veagle.",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -12,8 +12,14 @@
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
-  "author": "pierr",
-  "license": "MIT",
+  "author": "Pierre BIDET",
+  "license": "GPL-3.0",
+  "copyright": "Copyright © 2023 Veagle",
+  "company": "Veagle",
+  "email": "contact@veagle.fr",
+
+
+
   "devDependencies": {
     "@electron-forge/cli": "^6.0.5",
     "@electron-forge/maker-deb": "^6.0.5",
