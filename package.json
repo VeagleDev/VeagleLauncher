@@ -33,6 +33,7 @@
     "electron": "23.0.0",
     "eslint": "^8.34.0",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "node-loader": "^2.0.0",
     "style-loader": "^3.3.1",
