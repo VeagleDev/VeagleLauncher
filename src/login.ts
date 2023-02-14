@@ -36,7 +36,6 @@ if(selPage === "login") {
     submit.addEventListener("click", () => {
         if(isValid()) {
             console.log("Valid");
-            // TODO: Send data to server
             const credentials = {
                 pseudo: pseudo.value,
                 password: password.value,
@@ -53,7 +52,7 @@ if(selPage === "login") {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }) // TODO: Check if the request status is 200
+            })
             .then((response) => response.json())
             .then((data) => {
                 log(data);
