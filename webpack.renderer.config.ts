@@ -8,6 +8,19 @@ rules.push({
   use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
 });
 
+rules.push({
+      test: /\.svg$/,
+      use: [
+        {
+          loader: 'svg-url-loader',
+          options: {
+            limit: 10000,
+          },
+        },
+      ],
+    }
+)
+
 export const rendererConfig: Configuration = {
   module: {
     rules,
