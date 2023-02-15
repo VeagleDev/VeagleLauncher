@@ -39,26 +39,26 @@ if(selPage === "login") {
             const credentials = {
                 pseudo: pseudo.value,
                 password: password.value,
-                server: server.value + "/api"
+                server: server.value + "/api",
+                token: ""
             }
 
             const params = new URLSearchParams();
-            params.append("pseudo", credentials.pseudo);
+            params.append("username", credentials.pseudo);
             params.append("password", credentials.password);
 
-            fetch(credentials.server + "/login", {
+
+            fetch(credentials.server + "/login.php", {
                 method: "POST",
-                body: params,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then((response) => response.json())
-            .then((data) => {
+                body: params
+
+
+            }).then(res => res.json())
+            .then(data => {
                 log(data);
                 try {
                     if(data === null) throw "La réponse est vide, veuillez réessayer";
-                    if(data.status !== 200) throw "La requête a échoué, veuillez réessayer";
+                    //if(data.status !== 200) throw "La requête a échoué, veuillez réessayer";
                     if(data.success !== true) throw "Le serveur a renvoyé une erreur, veuillez réessayer";
 
                     if(data.logged === true) {
@@ -67,15 +67,13 @@ if(selPage === "login") {
                         if(token === undefined) throw "Le token est vide, veuillez réessayer";
                         if(token === "") throw "Le token est vide, veuillez réessayer";
 
+                        credentials.token = data.token;
+
                         // @ts-ignore
-                        if(api in window) {
-                            // @ts-ignore
-                            api.saveCredentials(credentials);
-                            //TODO: Redirect to main page
-                        }
-                        else {
-                            throw "L'API n'est pas disponible, veuillez réessayer";
-                        }
+                        api.saveCredentials(credentials);
+                        errorDisplay.innerText = "Connexion réussie";
+                        errorDisplay.style.color = "green";
+                        //TODO: Redirect to main page
                     }
                     else {
                         throw "Le pseudo ou le mot de passe est incorrect";
@@ -90,6 +88,7 @@ if(selPage === "login") {
 
             })
             .catch((error) => {
+                err(error.stack);
                 err(error);
                 errorDisplay.innerText = "Une erreur est survenue lors de la connexion au serveur, veuillez regarder la console pour plus de détails";
             });

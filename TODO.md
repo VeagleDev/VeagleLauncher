@@ -12,9 +12,9 @@
 
 ## Back
 
-- Page de connexion qui envoie à l'API les informations
-- L'API de connexion en PHP qui enregistre dans la BDD
-- Le chargement des jeux dans la page principale
+- [x] Page de connexion qui envoie à l'API les informations
+-  --> L'API de connexion en PHP qui enregistre dans la BDD
+-  --> Le chargement des jeux dans la page principale
 - Le chargement des détails d'un jeu dans la page de jeu
 
 
