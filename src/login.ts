@@ -23,7 +23,7 @@ if(selPage === "login") {
             if(password.value === "") throw "Password is empty";
             if(!pseudoRegex.test(pseudo.value)) throw "Pseudo is invalid";
             if(!serverRegex.test(server.value)) throw "Server is invalid";
-            if(!passwordRegex.test(password.value)) throw "Password is invalid";
+            //if(!passwordRegex.test(password.value)) throw "Password is invalid";
             return true;
         }
         catch(err) {
@@ -40,44 +40,40 @@ if(selPage === "login") {
                 pseudo: pseudo.value,
                 password: password.value,
                 server: server.value + "/api",
-                token: ""
+                token: "",
+                id: 0
             }
 
-            const params = new URLSearchParams();
-            params.append("username", credentials.pseudo);
-            params.append("password", credentials.password);
-
-
-            fetch(credentials.server + "/login.php", {
+            fetch(credentials.server + "/login", {
                 method: "POST",
-                body: params
-
+                body: JSON.stringify({
+                    pseudo: credentials.pseudo,
+                    password: credentials.password
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
 
             }).then(res => res.json())
             .then(data => {
                 log(data);
                 try {
                     if(data === null) throw "La réponse est vide, veuillez réessayer";
-                    //if(data.status !== 200) throw "La requête a échoué, veuillez réessayer";
-                    if(data.success !== true) throw "Le serveur a renvoyé une erreur, veuillez réessayer";
+                    if(data.success === false) throw "Le pseudo ou le mot de passe est incorrect";
 
-                    if(data.logged === true) {
-                        const token = data.token;
-                        if(token === null) throw "Le token est vide, veuillez réessayer";
-                        if(token === undefined) throw "Le token est vide, veuillez réessayer";
-                        if(token === "") throw "Le token est vide, veuillez réessayer";
+                    const token = data.token;
+                    if(!token) throw "Le token est vide, veuillez réessayer";
 
-                        credentials.token = data.token;
+                    credentials.token = data.token;
+                    credentials.id = data.id;
 
-                        // @ts-ignore
-                        api.saveCredentials(credentials);
-                        errorDisplay.innerText = "Connexion réussie";
-                        errorDisplay.style.color = "green";
-                        //TODO: Redirect to main page
-                    }
-                    else {
-                        throw "Le pseudo ou le mot de passe est incorrect";
-                    }
+                    // @ts-ignore
+                    api.saveCredentials(credentials);
+                    errorDisplay.innerText = "Connexion réussie";
+                    errorDisplay.style.color = "green";
+
+                    /** We now need to redirect to the main page */
+
 
                 }
                 catch(error) {

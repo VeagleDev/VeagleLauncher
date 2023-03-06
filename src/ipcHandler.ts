@@ -5,6 +5,7 @@ console.log("IPC Handler loaded");
 ipcMain.on('save-credentials', (event, credentials) => {
    const path = app.getPath('userData') + '/options.json';
    const savedCredentials = {
+        id: credentials.id,
         pseudo: credentials.pseudo,
         token: credentials.token,
         server: credentials.server
