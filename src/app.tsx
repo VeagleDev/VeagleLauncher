@@ -1,10 +1,13 @@
+import { HashRouter, Routes, Route } from "react-router-dom"
 import Layout from './components/Layout'
 
 function App() {
   return (
-      <div className="App">
-        <Layout />
-      </div>
+    <HashRouter>
+      <Routes>
+        <Route path='/' element={<Layout/>} />
+      </Routes>
+    </HashRouter>
   );
 }
 
