@@ -1,0 +1,10 @@
+# Ignore JavaScript files
+*.js linguist-detectable=false
+
+# Ignore files in .webpack and node_modules directories
+/.webpack linguist-detectable=false
+/node_modules linguist-detectable=false
+
+# Ignore files ending in .config.js or .config.ts
+*.config.js linguist-detectable=false
+*.config.ts linguist-detectable=false

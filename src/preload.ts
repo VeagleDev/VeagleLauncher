@@ -6,4 +6,7 @@ contextBridge.exposeInMainWorld('api', {
     saveCredentials: (credentials: []) => {
         ipcRenderer.sendSync('save-credentials', credentials);
     },
+    getCredentials: () => {
+        return ipcRenderer.sendSync('get-credentials');
+    }
 });

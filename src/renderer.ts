@@ -1,18 +1,23 @@
-
 import ReactDOM from 'react-dom/client';
-
-import './css/index.css';
 import './css/app.css';
-
 import App from "./app";
 
-//import "./login";
+import "./login";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const preferences = api.getCredentials();
+if(preferences)
+{
+    console.log(preferences);
+    const { id, server, token } = preferences.credentials;
 
-root.render(App());
-
+    //fetch()
+}
+else
+{
+    console.error("No preferences found");
+}
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
+
 
 

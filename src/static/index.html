@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <title>Hello World!</title>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="flex flex-col bg-gray-800 content-center items-center">
+    <input type="text" id="pseudo" placeholder="Pseudo"  class="bg-gray-200 w-64 m-4 p-4"/>
+    <input type="password" id="password" placeholder="Password" class="bg-gray-200 w-64 m-4 p-4" />
+    <input type="text" id="server" placeholder="Server" class="bg-gray-200 w-64 m-4 p-4" />
+    <button id="submit" class="bg-gray-200 w-64">Submit</button>
+    <span id="errorDisplay"></span>
   </body>
 </html>

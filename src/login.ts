@@ -18,9 +18,9 @@ if(selPage === "login") {
 
     const isValid = () => {
         try {
-            if(pseudo.value === "") throw "Pseudo is empty";
-            if(server.value === "") throw "Server is empty";
-            if(password.value === "") throw "Password is empty";
+            if(!pseudo.value) throw "Pseudo is empty";
+            if(!server.value) throw "Server is empty";
+            if(!password.value) throw "Password is empty";
             if(!pseudoRegex.test(pseudo.value)) throw "Pseudo is invalid";
             if(!serverRegex.test(server.value)) throw "Server is invalid";
             //if(!passwordRegex.test(password.value)) throw "Password is invalid";
