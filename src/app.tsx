@@ -1,9 +1,13 @@
+import { HashRouter, Routes, Route } from "react-router-dom"
+import Layout from './components/Layout'
 
 function App() {
   return (
-      <>
-          <div className="bg-gray-500 p-5 text-center">Tailwind</div>
-      </>
+    <HashRouter>
+      <Routes>
+        <Route path='/' element={<Layout/>} />
+      </Routes>
+    </HashRouter>
   );
 }
 

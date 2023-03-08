@@ -29,6 +29,22 @@ rules.push({
     }
 )
 
+rules.push({
+  test: /\.(png|jpe?g|gif)$/i,
+  use: [
+    {
+      loader: 'file-loader',
+    },
+  ],
+},
+)
+
+rules.push({
+  test: /.txt$/i,
+  use: 'raw-loader',
+},
+)
+
 export const rendererConfig: Configuration = {
   module: {
     rules,
