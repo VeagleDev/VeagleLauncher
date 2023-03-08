@@ -1,9 +1,7 @@
 import './css/app.css';
 
-import "./login";
-import "./start";
+import "./lib/login";
+import "./lib/start";
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
-
-
 
