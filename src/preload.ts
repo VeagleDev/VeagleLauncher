@@ -8,5 +8,8 @@ contextBridge.exposeInMainWorld('api', {
     },
     getCredentials: () => {
         return ipcRenderer.sendSync('get-credentials');
+    },
+    installGame: (game: number) => {
+        return ipcRenderer.sendSync('installGame', game);
     }
 });

@@ -1,4 +1,5 @@
-// @ts-ignore
+declare const api: any;
+
 const preferences = api.getCredentials();
 if (preferences) {
     console.log(preferences);

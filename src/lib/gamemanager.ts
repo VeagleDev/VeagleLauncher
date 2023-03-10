@@ -1,11 +1,14 @@
 // GameService.ts
-const diskSpace = require('check-disk-space').default;
-const fetch = require('node-fetch');
 const {app, ipcMain} = require('electron');
 
+const fetch = require('node-fetch').default;
+
+const fs = require('fs');
+const os = require('os');
+
+const diskSpace = require('check-disk-space').default;
+
 import "./interfaces/gamemanagerinterfaces";
-import * as os from "os";
-import fs from "fs";
 
 class GameManager {
     private installStatusList: InstallStatus[] = [];
@@ -40,6 +43,7 @@ class GameManager {
         this.installStatusList.push(game);
 
         // Get install link, size, path, etc. from the API
+
         const status = await fetch(this.userServer + "/games/install", {
             method: "POST",
             body: JSON.stringify({
@@ -73,19 +77,22 @@ class GameManager {
 
                 game.status = "Début du téléchargement";
 
-                await fetch(this.userServer + link, {
-                    method: "GET"
-                })
+                console.log("[DOWNLOAD] " + this.userServer + link);
+
+                await fetch(this.userServer + link)
                     .then((res: any) => {
                         // Get temp directory path
-                        const download = os.tmpdir() + (Math.random() + 1).toString(36).substring(2) + ".7z";
+                        const download = os.tmpdir() + "\\" + (Math.random() + 1).toString(36).substring(2) + ".7z";
 
                         const dest = fs.createWriteStream(download); // Créer un flux d'écriture
 
                         const totalLength = res.headers.get('content-length');  // Récupérer la taille du fichier
+
+                        console.log(`[LOG] Ecriture du fichier dans ${download} de taille ${totalLength} octets`);
+
                         let currentLength = 0; // Initialiser la taille actuelle à 0
 
-                        setInterval(() => {
+                        const interval = setInterval(() => {
                             console.log("[PROGRESS] " + currentLength + "/" + totalLength + " (" + Math.round(currentLength / totalLength * 100) + "%)");
                         }, 300);
 
@@ -94,7 +101,16 @@ class GameManager {
                         res.body.on("end", () => { // Quand le téléchargement est terminé
                             dest.close(); // Fermer le flux d'écriture
                             currentLength = totalLength; // Mettre la taille actuelle à la taille totale
+                            clearInterval(interval);
+
+                            // UNZIP THE FILE
+
+                            // REMOVE 7z FILE
+
+                            // ADD THE GAME TO THE GAMES LIST
+
                         });
+
                         res.body.on("data", (chunk: any) => { // Quand un chunk est téléchargé
                             currentLength += chunk.length; // Ajouter la taille du chunk à la taille actuelle
                         });
