@@ -1,48 +1,55 @@
 declare const api: any;
 
-const preferences = api.getCredentials();
-if (preferences) {
-    console.log(preferences);
-    const {id, server, token} = preferences.credentials;
-    const installedGames = preferences.games;
+export default function tryConnect() {
+    const preferences = api.getCredentials();
 
-    fetch(server + "/games/list", {
-        method: "POST",
-        body: JSON.stringify({
-            id: id,
-            token: token
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(res => res.json())
-        .then(data => {
+    if (preferences) {
+        console.log(preferences);
+        const {id, server, token} = preferences.credentials;
+        const installedGames = preferences.games;
 
-
-            const games = data;
-
-            for (const game of games) {
-                game.installed = false;
-                game.path = "";
+        return fetch(server + "/games/list", {
+            method: "POST",
+            body: JSON.stringify({
+                id: id,
+                token: token
+            }),
+            headers: {
+                'Content-Type': 'application/json'
             }
+        })
+            .then(res => res.json())
+            .then(data => {
 
-            for (const installedGame of installedGames) {
+
+                const games = data;
+
                 for (const game of games) {
-                    if (installedGame.id === game.id) {
-                        game.installed = true;
-                        game.path = installedGame.path;
-                        break;
+                    game.installed = false;
+                    game.path = "";
+                }
+
+                for (const installedGame of installedGames) {
+                    for (const game of games) {
+                        if (installedGame.id === game.id) {
+                            game.installed = true;
+                            game.path = installedGame.path;
+                            break;
+                        }
                     }
                 }
-            }
 
-            console.log(games);
+                console.log(games);
+                return games;
 
-        })
-        .catch(err => {
-            console.error(err);
-        });
-} else {
-    console.error("No preferences found");
+            })
+            .catch(err => {
+                console.error(err);
+                return false;
+            });
+    } else {
+        console.error("No preferences found");
+        return false;
+    }
 }
+
