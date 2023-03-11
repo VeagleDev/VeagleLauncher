@@ -25,21 +25,7 @@ export class Login extends Component {
     }
 }
 
-
-interface Game {
-    id: number;
-    name: string;
-    description: string;
-    icon: string;
-    background: string;
-    installations: number;
-    installed: boolean;
-    path: string;
-}
-
-
 export function Games(props: any) {
-    console.log(props.games);
     return (
         <div className="flex flex-wrap justify-center">
             {props.map((game: any) => (
