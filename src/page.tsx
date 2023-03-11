@@ -16,7 +16,7 @@ export class Login extends Component {
                        className="bg-gray-200 text-black caret-blue w-64 m-4 p-4"/>
                 <input type="password" id="password" placeholder="Password"
                        className="bg-gray-200 text-black caret-blue w-64 m-4 p-4"/>
-                <input type="text" id="server" placeholder="Server"
+                <input type="text" id="server" placeholder="Server" value={"http://localhost:3333"}
                        className="bg-gray-200 text-black caret-blue w-64 m-4 p-4"/>
                 <button id="submit" className="bg-gray-200 text-black caret-blue w-64 m-4 p-4">Submit</button>
                 <span id="errorDisplay"></span>

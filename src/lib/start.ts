@@ -1,5 +1,6 @@
 declare const api: any;
 
+
 export default function tryConnect() {
     const preferences = api.getCredentials();
 

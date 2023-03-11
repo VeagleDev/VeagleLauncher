@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/app.css';
+import {setOnSuccessfulLogin} from "./lib/login";
 import {Games, Login} from './page';
 
 import tryConnect from './lib/start';
@@ -8,27 +9,34 @@ import tryConnect from './lib/start';
 let loadPage = "login";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-(async () => {
+async function Render() {
     const value = await tryConnect();
     if (value) {
         loadPage = "main";
     }
 
+    const renderLogin = () => {
+        const loginElement = React.createElement(Login, null);
+        root.render(React.createElement(React.StrictMode, null, loginElement),
+        );
+    }
+    const renderMain = (value: any) => {
+        root.render(Games(value));
+    }
+
     switch (loadPage) {
         case "login":
-            // eslint-disable-next-line no-case-declarations
-            const loginElement = React.createElement(Login, null);
-            // eslint-disable-next-line no-case-declarations
-            root.render(
-                React.createElement(React.StrictMode, null, loginElement),
-            );
+            setOnSuccessfulLogin(Render);
+            renderLogin();
             break;
 
         // @ts-ignore
         case "main":
-            root.render(Games(value));
+            renderMain(value);
             break;
     }
-})();
+}
+
+Render();
 
 
