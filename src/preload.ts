@@ -1,6 +1,10 @@
-const { ipcRenderer, contextBridge } = require('electron');
+const {ipcRenderer, contextBridge} = require('electron');
 
 console.log("preload.ts 👌");
+
+let installListener: any = () => {
+    console.log("Pas de listener d'installation")
+};
 
 contextBridge.exposeInMainWorld('api', {
     saveCredentials: (credentials: []) => {
@@ -11,5 +15,12 @@ contextBridge.exposeInMainWorld('api', {
     },
     installGame: (game: number) => {
         return ipcRenderer.sendSync('installGame', game);
+    },
+    setInstallListener: (callback: any) => {
+        installListener = callback;
     }
 });
+
+setInterval(() => {
+    installListener(ipcRenderer.sendSync('update-status'));
+}, 500);

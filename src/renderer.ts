@@ -1,3 +1,5 @@
+declare const api: any;
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/app.css';
@@ -33,6 +35,9 @@ async function Render() {
         // @ts-ignore
         case "main":
             renderMain(value);
+            api.setInstallListener((adv: any) => {
+                console.log("Progressions: ", adv);
+            });
             break;
     }
 }

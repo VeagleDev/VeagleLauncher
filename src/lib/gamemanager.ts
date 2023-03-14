@@ -1,17 +1,18 @@
 // GameService.ts
+import IpcMainEvent = Electron.IpcMainEvent;
+
 const {app, ipcMain} = require('electron');
-
 const fetch = require('node-fetch').default;
-
 const fs = require('fs');
 const os = require('os');
-
+const Seven = require('node-7z');
+const {path7za} = require('7zip-bin');
 const diskSpace = require('check-disk-space').default;
-
 import "./interfaces/gamemanagerinterfaces";
 
+
 class GameManager {
-    private installStatusList: InstallStatus[] = [];
+    public installStatusList: InstallStatus[] = [];
     private launchedGames: LaunchedGame[] = [];
 
     private userID: number;
@@ -22,131 +23,177 @@ class GameManager {
         this.userID = id;
         this.userToken = token;
         this.userServer = server;
-    }
 
-    // install a game by ID
+        console.log("Adresse du serveur: " + this.userServer);
+
+    }
     async installGameById(id: number): Promise<[boolean, string]> {
-        // TODO: Check if the game is already installed
+        try {
 
-        for (const installingGame of this.installStatusList) {
-            if (installingGame.gameId === id) {
-                return [false, "Le jeu est déjà en cours d'installation"];
+            const game: InstallStatus = {
+                gameId: id,
+                status: "getting-info",
+                message: "Récupération des informations",
+                active: true,
+                progress: 0
             }
-        }
 
-        const game: InstallStatus = {
-            gameId: id,
-            status: "Récupération des informations",
-            progress: 0
-        }
 
-        this.installStatusList.push(game);
+            console.log(this.installStatusList);
 
-        // Get install link, size, path, etc. from the API
+            // Check if the game is already installed
+            for (const installingGame of this.installStatusList) {
+                if (installingGame.gameId === id) {
+                    if (installingGame.active === false)
+                        continue;
+                    if (installingGame.status === "error")
+                        continue;
+                    if (installingGame.status === "finished")
+                        return [false, "Le jeu est déjà installé"];
 
-        const status = await fetch(this.userServer + "/games/install", {
-            method: "POST",
-            body: JSON.stringify({
-                id: this.userID,
-                token: this.userToken,
-                gameId: id
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((res: { json: () => any; }) => res.json())
-            .then(async (data: any) => {
-                const {id, executable, path, size} = data.game;
-                const link = path;
-
-                // TODO: Check if the available space is enough
-
-                game.status = "Vérification de l'espace disque";
-
-                const availableGB = await diskSpace(os.tmpdir()).then((diskSpace: any) => {
-                    return diskSpace.free / 1000000000;
-                });
-
-                if (availableGB - 1 < 0) {
-                    game.status = "Espace disque insuffisant";
-                    return [false, "Espace disque insuffisant"];
+                    return [false, "Le jeu est déjà en cours d'installation"];
                 }
+            }
 
-                // Start downloading with fetch stream
+            this.installStatusList.push(game);
 
-                game.status = "Début du téléchargement";
+            // Get install link, size, path, etc. from the API
+            const response = await fetch(this.userServer + "/games/install", {
+                method: "POST",
+                body: JSON.stringify({
+                    id: this.userID,
+                    token: this.userToken,
+                    gameId: id
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
-                console.log("[DOWNLOAD] " + this.userServer + link);
+            if (!response.ok) {
 
-                await fetch(this.userServer + link)
-                    .then((res: any) => {
-                        // Get temp directory path
-                        const download = os.tmpdir() + "\\" + (Math.random() + 1).toString(36).substring(2) + ".7z";
+                game.status = "error";
+                game.message = "Impossible de récupérer les informations du jeu. Code d'erreur : " + response.status;
+                game.active = false;
 
-                        const dest = fs.createWriteStream(download); // Créer un flux d'écriture
+                throw new Error("Impossible de récupérer les informations du jeu. Code d'erreur : " + response.status);
+            }
 
-                        const totalLength = res.headers.get('content-length');  // Récupérer la taille du fichier
+            const data = await response.json();
+            const {id: gameId, executable, path, size} = data.game;
+            const link = path;
 
-                        console.log(`[LOG] Ecriture du fichier dans ${download} de taille ${totalLength} octets`);
+            // Check if the available space is enough
+            game.status = "checking-space";
+            game.message = "Vérification de l'espace disque";
 
-                        let currentLength = 0; // Initialiser la taille actuelle à 0
+            const availableGB = await diskSpace(os.tmpdir()).then((diskSpace: any) => {
+                return diskSpace.free / 1000000000;
+            });
 
-                        const interval = setInterval(() => {
-                            console.log("[PROGRESS] " + currentLength + "/" + totalLength + " (" + Math.round(currentLength / totalLength * 100) + "%)");
-                        }, 300);
+            if (availableGB - 1 < 0) {
+                game.status = "error";
+                game.message = "Espace disque insuffisant";
+                game.active = false;
 
-                        res.body.pipe(dest); // Écrire les données dans le flux d'écriture
+                return [false, "Espace disque insuffisant"];
+            }
 
-                        res.body.on("end", () => { // Quand le téléchargement est terminé
-                            dest.close(); // Fermer le flux d'écriture
-                            currentLength = totalLength; // Mettre la taille actuelle à la taille totale
-                            clearInterval(interval);
+            // Start downloading with fetch stream
+            game.status = "downloading";
+            game.message = "Téléchargement du jeu";
 
-                            // UNZIP THE FILE
 
-                            // REMOVE 7z FILE
+            const response2 = await fetch(link);
 
-                            // ADD THE GAME TO THE GAMES LIST
+            if (!response2.ok) {
+                game.status = "error";
+                game.message = "Impossible de télécharger le jeu. Code d'erreur : " + response2.status;
+                game.active = false;
 
-                        });
+                throw new Error("Impossible de télécharger le jeu. Code d'erreur : " + response2.status);
+            }
 
-                        res.body.on("data", (chunk: any) => { // Quand un chunk est téléchargé
-                            currentLength += chunk.length; // Ajouter la taille du chunk à la taille actuelle
-                        });
+            const totalLength = response2.headers.get('content-length');  // Récupérer la taille du fichier
+            let currentLength = 0; // Initialiser la taille actuelle à 0
+            const download = os.tmpdir() + "\\" + (Math.random() + 1).toString(36).substring(2) + ".7z";
+            const dest = fs.createWriteStream(download); // Créer un flux d'écriture
+
+
+            const interval = setInterval(() => {
+                game.progress = Math.round((currentLength / totalLength) * 100);
+            }, 200);
+
+            await new Promise((resolve, reject) => {
+                response2.body.pipe(dest); // Écrire les données dans le flux d'écriture
+                response2.body.on("end", async (): Promise<any> => { // Quand le téléchargement est terminé
+                    dest.close(); // Fermer le flux d'écriture
+                    currentLength = totalLength; // Mettre la taille actuelle à la taille totale
+                    clearInterval(interval);
+
+                    game.status = "unzipping";
+                    game.message = "Décompression du jeu";
+                    game.progress = 0;
+
+                    const installPath = app.getPath("documents") + "\\VeagleLauncher\\Games\\" + gameId + "\\";
+
+                    await Seven.extractFull(download, installPath, {
+                        $bin: path7za,
                     })
-                    .catch((err: any) => {
-                        console.error(err);
-                        return [false, "Une erreur est survenue durant le téléchargement"];
-                    });
+                        .on("progress", (progress: any) => {
+                            game.progress = Math.round(progress.percent);
+                        });
 
-                // Decompress the archive
+                    game.status = "deleting-archive";
+                    game.message = "Suppression de l'archive";
+                    game.progress = 0;
 
-                game.status = "Installation du jeu";
+                    fs.unlinkSync(download);
 
-                // Add the game to the games list
+                    game.status = "adding-to-list";
+                    game.message = "Ajout du jeu à la liste";
+                    game.progress = 0;
 
-                game.status = "Ajout du jeu à la bibliothèque";
+                    const executablePath = installPath + "\\" + executable;
 
-                // Finish the installation
+                    const path = app.getPath('userData') + '/options.json';
 
-                game.status = "Installation réussie";
-                game.progress = 100;
+                    if (fs.existsSync(path)) {
+                        const read = JSON.parse(fs.readFileSync(path, 'utf8'));
+                        read.games.push({
+                            id: gameId,
+                            path: executablePath,
+                        });
+                    } else {
+                        game.status = "error";
+                        game.message = "Impossible de trouver le fichier de configuration";
+                        game.active = false;
 
-                return [true, "Installation réussie"];
-            })
-            .catch((err: any) => {
-                console.error(err);
-                return [false, "Une erreur est survenue durant le téléchargement"];
-            }) as [boolean, string];
+                        throw new Error("Impossible de trouver le fichier de configuration");
+                    }
 
-        if (!status[0]) return [false, status[1]];
+                    // Create a shortcut
 
 
-        return [true, "Installation réussie"];
+                    game.status = "finished";
+                    game.message = "Installation terminée";
+                    game.progress = 100;
+
+                    return resolve("Installation terminée");
+                });
+                response2.body.on("error", () => {
+                    reject(new Error("Une erreur s'est produite lors du téléchargement du jeu"));
+                });
+            });
+
+            return [true, "Installation terminée avec succès"];
+
+        } catch (error) {
+            console.error(error);
+            return [false, error.message];
+        }
     }
 
-    // get the status of an installation by game ID
     getInstallStatusById(id: number): InstallStatus | undefined {
         // TODO: implement
         return undefined;
@@ -185,6 +232,11 @@ if (fs.existsSync(path)) {
             event.reply("installGame", status);
             return status;
         });
+    });
+
+    ipcMain.on("update-status", async (event: IpcMainEvent) => {
+        event.returnValue = manager.installStatusList;
+        return;
     });
 
 }

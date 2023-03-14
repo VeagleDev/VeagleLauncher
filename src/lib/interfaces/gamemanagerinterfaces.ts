@@ -13,6 +13,10 @@ interface Game {
 interface InstallStatus {
     gameId: number;
     status: string;
+
+    message: string;
+
+    active: boolean;
     progress: number;
 }
 
