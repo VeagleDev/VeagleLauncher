@@ -11,7 +11,6 @@ const err = (message: string) => {
 
 const pseudoRegex = new RegExp("^[a-zA-Z0-9_]{3,16}$");
 const serverRegex = new RegExp("^(https?://)?([a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*.[a-zA-Z]{2,5}|localhost)(:[0-9]{1,5})?(/.*)?$");
-const passwordRegex = new RegExp("^[\\s\\S]{7,64}$");
 
 let onSuccessfulLogin = () => {
     console.log("No callback on successful login")
@@ -84,7 +83,7 @@ export function Start() {
                         errorDisplay.innerText = "Connexion réussie";
                         errorDisplay.style.color = "green";
 
-                        /** We now need to redirect to the main page */
+                        /** We now need to redirect to the main page **/
                         onSuccessfulLogin();
 
 

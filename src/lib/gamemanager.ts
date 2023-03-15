@@ -103,9 +103,11 @@ class GameManager {
             let currentLength = 0; // Initialiser la taille actuelle à 0
             const download = os.tmpdir() + "/" + (Math.random() + 1).toString(36).substring(2) + ".7z";
             const dest = fs.createWriteStream(download); // Créer un flux d'écriture
+
             const interval = setInterval(() => {
                 game.progress = Math.round((currentLength / totalLength) * 100);
             }, 200);
+
             await new Promise((resolve, reject) => {
                 response2.body.pipe(dest); // Écrire les données dans le flux d'écriture
                 response2.body.on("end", async (): Promise<any> => { // Quand le téléchargement est terminé
@@ -117,25 +119,24 @@ class GameManager {
                     game.progress = 0;
                     const installPath = app.getPath("documents") + "\\VeagleLauncher\\Games\\" + id + "\\";
                     await new Promise((resolve, reject) => {
-                        Seven.extract(download, installPath, {
+                        const extractStream = Seven.extractFull(download, installPath, {
                             $bin: path7za,
+                            $progress: true
                         })
-                            .on("progress", (progress: any) => {
-                                game.progress = Math.round(progress.percent);
-                            })
-                            .on("error", (err: any) => {
-                                game.status = "error";
-                                game.message = "Impossible de décompresser le jeu";
-                                game.active = false;
-
-                                reject(new Error("Impossible de décompresser le jeu"));
-                            })
-                            .on("end", () => {
-                                resolve("ok");
-                            });
+                        extractStream.on("progress", (progress: any) => {
+                            game.progress = progress.percent;
+                        });
+                        extractStream.on("error", (err: any) => {
+                            game.status = "error";
+                            game.message = "Impossible de décompresser le jeu";
+                            game.active = false;
+                            reject(new Error("Impossible de décompresser le jeu"));
+                        });
+                        extractStream.on("end", () => {
+                            resolve("ok");
+                        });
                     })
                         .catch((err: any) => {
-
                             game.status = "error";
                             game.message = "Impossible de décompresser le jeu";
                             game.active = false;
@@ -238,10 +239,8 @@ function Start() {
         const {id, token, server} = read.credentials;
         const manager = new GameManager(id, token, server);
 
-        ipcMain.on("installGame", async (event: any, id: number) => {
+        ipcMain.handle("installGame", async (event: any, id: number) => {
             return await manager.installGameById(id).then((status: any) => {
-                event.returnValue = status;
-                event.reply("installGame", status);
                 return status;
             });
         });
