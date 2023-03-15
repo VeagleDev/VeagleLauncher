@@ -23,7 +23,9 @@ async function Render() {
         );
     }
     const renderMain = (value: any) => {
-        root.render(Games(value));
+        const mainElement = React.createElement(Games, value);
+        root.render(React.createElement(React.StrictMode, null, mainElement),
+        );
     }
 
     switch (loadPage) {
@@ -35,9 +37,6 @@ async function Render() {
         // @ts-ignore
         case "main":
             renderMain(value);
-            api.setInstallListener((adv: any) => {
-                console.log("Progressions: ", adv);
-            });
             break;
     }
 }
