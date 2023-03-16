@@ -1,4 +1,4 @@
-const end = "backend"; // or "backend"
+const end = "frontend"; // or "backend"
 
 
 declare const api: any;

@@ -9,6 +9,6 @@ export const mainConfig: Configuration = {
     rules,
   },
   resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json', '.csv', '.png', '.jpg', '.txt', 'mp4'],
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json', '.csv', '.png', '.jpg', '.txt', 'mp4', 'webm'],
   },
 };
