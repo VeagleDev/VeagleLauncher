@@ -5,7 +5,7 @@ import {rules} from './webpack.rules';
 export const mainConfig: Configuration = {
   entry: './src/main.ts',
   mode: 'production',
-  target: 'electron-main',
+  //target: 'electron-main',
   module: {
     rules,
   },
