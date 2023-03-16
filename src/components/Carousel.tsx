@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { useState, useRef, useEffect } from 'react';
+import {Link} from 'react-router-dom'
+import {useEffect, useRef, useState} from 'react';
 import Icon from './Icon';
 import downloadI from '../assets/icons/download.txt'
 

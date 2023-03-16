@@ -1,5 +1,4 @@
-import { useLocation } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import Icon from './Icon'
 import downloadI from '../assets/icons/download.txt'
 import starI from '../assets/icons/star.txt'
