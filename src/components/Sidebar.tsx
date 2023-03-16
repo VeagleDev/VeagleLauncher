@@ -1,6 +1,6 @@
-import { Link, NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import DefaultPP from '../assets/img/base_pp.jpg';
-import Icon from './Icon' 
+import Icon from './Icon'
 
 import appsI from '../assets/icons/apps.txt'
 import shopI from '../assets/icons/shop.txt'
