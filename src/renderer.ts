@@ -1,17 +1,20 @@
+const end = "backend"; // or "backend"
+
+
 declare const api: any;
+import {setOnSuccessfulLogin} from "./lib/login";
+import {Games, Login} from './page';
+import tryConnect from './lib/start';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/app.css';
-import {setOnSuccessfulLogin} from "./lib/login";
-import {Games, Login} from './page';
+import App from "./app";
 
-import tryConnect from './lib/start';
-
-let loadPage = "login";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 async function Render() {
+    let loadPage = "login";
     const value = await tryConnect();
     if (value) {
         loadPage = "main";
@@ -41,6 +44,13 @@ async function Render() {
     }
 }
 
-Render();
+// @ts-ignore
+if (end === "frontend")
+    root.render(App());
+else
+    Render();
+
+
+console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
 

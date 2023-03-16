@@ -1,10 +1,7 @@
-import type { Configuration } from 'webpack';
+import type {Configuration} from 'webpack';
 
-import { rules } from './webpack.rules';
-import { plugins } from './webpack.plugins';
-
-const path = require('path');
-
+import {rules} from './webpack.rules';
+import {plugins} from './webpack.plugins';
 
 
 rules.push({
@@ -30,7 +27,7 @@ rules.push({
 )
 
 rules.push({
-  test: /\.(png|jpe?g|gif)$/i,
+  test: /\.(png|jpe?g|gif|mp4)$/i,
   use: [
     {
       loader: 'file-loader',
