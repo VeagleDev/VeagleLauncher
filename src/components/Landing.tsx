@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import videoBg from '../assets/img/fh5_template.mp4';
 
 
