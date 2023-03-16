@@ -27,40 +27,8 @@ export class Login extends Component {
 }
 
 export class Games extends Component {
-    state = {
-        installStatus: []
-    }
-
     componentDidMount() {
         Begin();
-        // Simulation de changement d'état d'installation pour tester la section de statistiques
-        setTimeout(() => {
-            this.setState({
-                installStatus: [
-                    {
-                        gameId: 1,
-                        status: 'downloading',
-                        message: 'Téléchargement en cours...',
-                        active: true,
-                        progress: 0
-                    },
-                    {
-                        gameId: 2,
-                        status: 'checking-space',
-                        message: 'Vérification de l\'espace disque...',
-                        active: false,
-                        progress: 0
-                    },
-                    {
-                        gameId: 3,
-                        status: 'adding-to-list',
-                        message: 'Ajout à la liste d\'installation...',
-                        active: false,
-                        progress: 0
-                    }
-                ]
-            })
-        }, 3000);
     }
 
     handleGameClick(gameId: number, installed: boolean) {
@@ -76,24 +44,8 @@ export class Games extends Component {
     render() {
         console.log(this.props)
         const infos = Object.values(this.props);
-        const {installStatus} = this.state;
         return (
-            <div className="flex flex-wrap justify-center">
-                <div className="w-1/4 p-4 rounded-lg shadow-lg bg-gray-100">
-                    <h2 className="text-lg font-semibold mb-4">Statistiques d'installation</h2>
-                    <div className="flex flex-col">
-                        {installStatus.map(status => (
-                            <div key={status.gameId}
-                                 className={`flex items-center ${status.active ? "font-semibold" : "text-gray-500"}`}>
-                                <div
-                                    className={`w-4 h-4 rounded-full ${status.active ? "bg-blue-500" : "bg-gray-400"}`}></div>
-                                <div className="ml-2 flex-1">{status.message}</div>
-                                {status.progress > 0 && <div className="text-right">{status.progress}%</div>}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="w-3/4 flex flex-wrap justify-center">
+                <div className="w-full flex flex-wrap justify-center">
                     {infos.map((game: any) => (
                         <div key={game.id} className="w-72 m-4 rounded-lg shadow-lg game-card relative overflow-hidden">
                             <img src={game.icon} alt={game.name}
@@ -113,7 +65,6 @@ export class Games extends Component {
                         </div>
                     ))}
                 </div>
-            </div>
         );
     }
 }

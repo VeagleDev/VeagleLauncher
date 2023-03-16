@@ -13,10 +13,7 @@ module.exports = {
       'black': '#000000',
       'blue': '#023E8A',
       'orange': '#EB5E28',
-      'dark-orange': '#FF4700',
       'primary-bg': '#201F1D',
-      'black-trans': '#0000009c',
-      'gray': '#333333',
     },
     fontFamily: {
       'primary': ['Poppins', 'sans-serif'],
@@ -30,45 +27,16 @@ module.exports = {
       '4xl': '60px',
       '5xl': '120px',
     },
-    aspectRatio: {
-      auto: 'auto',
-      square: '1 / 1',
-      video: '16 / 9',
-    },
     extend: {
       spacing: {
-        'max-screen-width': '2560px',
-        'icon': '30px',
-        'sidebar': '70px',
-        'button': '180px',
-        'paragraphe': '80vw',
-        'cell': '300px',
         '10': '10px',
-        '10p': '10%',
-        '20': '20px',
-        '30': '30px',
-        '40': '40px',
+        'sidebar': '70px',
         '50': '50px',
-        '60': '60px',
-        '70': '70px',
       },
       borderRadius: {
         '4xl': '2rem',
-      },
-      zIndex: {
-        'sidebar': '9999',
-        'bg': '-1',
-      },
-      boxShadow: {
-        'btn': '0 5px 30px -10px',
-        'card': '0 0 50px -10px',
-      },
+      }
     }
   },
-  corePlugins: {
-    aspectRatio: false,
-  },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [],
 }
