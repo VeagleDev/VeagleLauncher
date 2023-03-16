@@ -28,3 +28,16 @@ ipcMain.on('save-credentials', (event, credentials) => {
    event.returnValue = true;
    return;
 });
+
+ipcMain.on("get-credentials", (event) => {
+    const path = app.getPath('userData') + '/options.json';
+
+    if(fs.existsSync(path)) {
+        const read = JSON.parse(fs.readFileSync(path, 'utf8'));
+        event.returnValue = read;
+    }
+    else
+        event.returnValue = false;
+
+    return;
+});
