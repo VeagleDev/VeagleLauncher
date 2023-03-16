@@ -10,38 +10,37 @@ import settingsI from '../assets/icons/settings.txt'
 
 function Sidebar() {
     return (
-        <div className="fixed h-screen w-sidebar flex flex-col">
-            <div className="absolute inset-0 z-0 bg-black opacity-30 backdrop-blur-sm w-full h-full"></div>
+        <div className="fixed h-screen w-sidebar flex flex-col z-sidebar">
+            <div className="absolute inset-0 z-30 bg-black/50 backdrop-blur-md w-full h-full"></div>
 
-            <div className="z-10 flex flex-col justify-between items-center">
-                <button className="rounded-full overflow-hidden w-50 h-50 mt-10">
+            <div className="z-40 flex flex-col justify-between items-center h-full">
+                <button className="rounded-full overflow-hidden w-40 h-40 mt-10">
                     <img src={DefaultPP} alt="profile picture"/>
                 </button>
 
-                <nav>
+                <nav className="flex flex-col items-center flex-wrap space-y-40">
                     <NavLink to="/">
-                        <Icon path={appsI} />
+                        <Icon path={appsI} color="auto" />
                     </NavLink>
 
                     <NavLink to="/">
-                        <Icon path={shopI} />
+                        <Icon path={shopI} color="auto"/>
                     </NavLink>
 
                     <NavLink to="/">
-                        <Icon path={searchI} />
+                        <Icon path={searchI} color="auto"/>
                     </NavLink>
 
                     <NavLink to="/">
-                        <Icon path={downloadI} />
+                        <Icon path={downloadI} color="auto"/>
                     </NavLink>
 
                     <NavLink to="/">
-                        <Icon path={settingsI} />
+                        <Icon path={settingsI} color="auto"/>
                     </NavLink>
                 </nav>
 
-                <div>
-                </div>
+                <div className="w-50 h-50 mb-10"></div>
             </div>
         </div>
     );
