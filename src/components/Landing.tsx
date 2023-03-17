@@ -10,7 +10,7 @@ function Landing(props:any) {
                 <video src={videoBg} autoPlay loop muted className="object-cover w-full h-full"/>
             </div>
             <div className="absolute w-full h-[400px] bottom-0 translate-y-1/2 bg-gradient-to-t from-primary-bg via-primary-bg to-transparent"></div>
-            <div className="ml-[82px] z-50 absolute top-[40%] -translate-y-1/2 mb-[200px]">
+            <div className="ml-[calc(theme(space.sidebar)+12px)] z-50 absolute top-[40%] -translate-y-1/2 mb-[200px]">
                 <h1 className="text-[8vw]">Forza Horizon 5</h1>
                 <p className="w-paragraphe max-w-[700px] text-base">Forza Horizon 5 est un jeu de course en monde ouvert développé par Playground Games. Il prend place dans les villes et magnifiques décors du Mexique.</p>
                 

@@ -10,9 +10,7 @@ import settingsI from '../assets/icons/settings.txt'
 
 function Sidebar() {
     return (
-        <div className="fixed h-screen w-sidebar flex flex-col z-sidebar">
-            <div className="absolute inset-0 z-30 bg-black/50 backdrop-blur-md w-full h-full"></div>
-
+        <div className="fixed h-screen w-sidebar flex flex-col z-sidebar bg-black/50 backdrop-blur-md">
             <div className="z-40 flex flex-col justify-between items-center h-full">
                 <button className="rounded-full overflow-hidden w-40 h-40 mt-10">
                     <img src={DefaultPP} alt="profile picture"/>

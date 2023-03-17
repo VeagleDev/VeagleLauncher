@@ -53,7 +53,7 @@ const Carousel = () => {
     }, []);
 
   return (
-    <div className="carousel ml-[82px] mb-70 -translate-y-2/3">
+    <div className="carousel ml-[calc(theme(space.sidebar)+12px)] mb-70 -translate-y-2/3">
         <p className="mb-2">Jeux populaire</p>
         <div className="flex justify-between absolute top left w-full h-full overflow-auto">
             <button 
