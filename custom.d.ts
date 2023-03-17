@@ -9,3 +9,4 @@ declare module "*.jpeg";
 declare module "*.jpg";
 declare module "*.txt";
 declare module "*.mp4";
+declare module "*.webm";

@@ -44,6 +44,7 @@ async function Render() {
     }
 }
 
+// @ts-ignore
 if (end === "frontend")
     root.render(App());
 else

@@ -239,14 +239,26 @@ function Start() {
         const {id, token, server} = read.credentials;
         const manager = new GameManager(id, token, server);
 
+        console.log(ipcMain.listenerCount("installGame"));
+
+        ipcMain.removeHandler("installGame");
+
         ipcMain.handle("installGame", async (event: any, id: number) => {
             return await manager.installGameById(id).then((status: any) => {
                 return status;
             });
         });
 
+        ipcMain.removeAllListeners("update-status");
+
         ipcMain.on("update-status", async (event: IpcMainEvent) => {
             event.returnValue = manager.installStatusList;
+            return;
+        });
+    }
+    else {
+        ipcMain.on("update-status", async (event: IpcMainEvent) => {
+            event.returnValue = [];
             return;
         });
     }
@@ -254,4 +266,7 @@ function Start() {
 
 Start();
 
+module.exports = {
+    Start
+}
 

@@ -1,7 +1,6 @@
 const { ipcMain, app } = require('electron');
 const fs = require('fs');
 
-console.log("IPC Handler loaded");
 ipcMain.on('save-credentials', (event, credentials) => {
    const path = app.getPath('userData') + '/options.json';
    const savedCredentials = {
@@ -25,6 +24,10 @@ ipcMain.on('save-credentials', (event, credentials) => {
 
    fs.writeFileSync(path, JSON.stringify(returnVal));
    console.log("Saved credentials : " + JSON.stringify(returnVal) + " to " + path);
+
+   const {Start} = require('./gamemanager');
+   Start();
+
    event.returnValue = true;
    return;
 });

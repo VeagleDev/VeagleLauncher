@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import videoBg from '../assets/img/fh5_template.mp4';
+import videoBg from '../assets/img/forza.webm';
 
 
 function Landing(props:any) {
