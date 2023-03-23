@@ -7,7 +7,7 @@ function Layout() {
     return (
         <div>
             <Sidebar />
-            <Popup />
+            {/* <Popup /> */}
             <Outlet />
         </div>
     );

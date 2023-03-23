@@ -19,7 +19,7 @@ function PopupCard(props:InstallStatus) {
 
     return (
         <button
-        className={`${effect && "animate-popup-remove"} ${show && "hidden"} w-full h-[70px] mt-10 rounded-2xl z-50 bg-gray/60 backdrop-blur-xl text-left flex justify-center items-center transition-all duration-500`}
+        className={`${effect && "animate__animated animate__fadeOutRight animate__faster"} ${show && "hidden"} w-full h-[70px] mt-10 rounded-2xl z-50 bg-gray/60 backdrop-blur-xl text-left flex justify-center items-center transition-all duration-500`}
         onAnimationEnd={() => setShow(true)}
         >
             <div className="w-[90%] h-[70%] flex flex-col justify-between">

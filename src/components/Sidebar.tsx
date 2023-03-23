@@ -33,7 +33,7 @@ function Sidebar() {
                         <Icon path={downloadI} color="auto"/>
                     </NavLink>
 
-                    <NavLink to="/">
+                    <NavLink to="/Connexion">
                         <Icon path={settingsI} color="auto"/>
                     </NavLink>
                 </nav>

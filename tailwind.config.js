@@ -65,6 +65,8 @@ module.exports = {
       },
       animation: {
         'popup-remove': '.4s ease both popupRemove',
+        'popup-show': '1s ease reverse both popupRemove',
+        'fadeInRight': '1s ease both animate__fadeInRightBig'
       },
       keyframes: {
         popupRemove: {
