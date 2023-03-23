@@ -39,7 +39,7 @@ module.exports = {
       spacing: {
         'max-screen-width': '2560px',
         'icon': '30px',
-        'sidebar': '70px',
+        'sidebar': '60px',
         'button': '180px',
         'paragraphe': '80vw',
         'cell': '300px',
@@ -63,6 +63,17 @@ module.exports = {
         'btn': '0 5px 30px -10px',
         'card': '0 0 50px -10px',
       },
+      animation: {
+        'popup-remove': '.4s ease both popupRemove',
+        'popup-show': '1s ease reverse both popupRemove',
+        'fadeInRight': '1s ease both animate__fadeInRightBig'
+      },
+      keyframes: {
+        popupRemove: {
+          '0%': { transform: 'translateX(0)', opacity: '100' },
+          '100%': { transform: 'translateX(110%)', opacity: '0' }
+        }
+      }
     }
   },
   corePlugins: {

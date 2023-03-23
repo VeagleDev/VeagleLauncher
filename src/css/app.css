@@ -2,11 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Teko:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Teko:wght@700&display=swap');
+@import 'animate.css';
 
 @layer base {
     h1 {
         @apply font-title text-5xl leading-none;
+    }
+
+    h2, h3, h4, h5, h6 {
+        @apply leading-none;
     }
 
     body {
@@ -15,6 +20,10 @@
     }
 
     span {
-        @apply text-[18px]
+        @apply text-[18px];
+    }
+
+    input {
+        @apply focus:border-0 focus:outline-0 text-black font-normal text-[16px];
     }
 }
