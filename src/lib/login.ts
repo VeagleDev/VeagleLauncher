@@ -30,16 +30,17 @@ export function Start() {
 
     const isValid = () => {
         try {
-            if (!pseudo.value) throw "Pseudo is empty";
-            if (!server.value) throw "Server is empty";
-            if (!password.value) throw "Password is empty";
-            if (!pseudoRegex.test(pseudo.value)) throw "Pseudo is invalid";
-            if (!serverRegex.test(server.value)) throw "Server is invalid";
+            if (!pseudo.value) throw "Le pseudo est vide";
+            if (!server.value) throw "Le serveur est vide";
+            if (!password.value) throw "Le mot de passe est vide";
+            if (!pseudoRegex.test(pseudo.value)) throw "Le pseudo est invalide";
+            if (!serverRegex.test(server.value)) throw "Le serveur est invalide";
             //if(!passwordRegex.test(password.value)) throw "Password is invalid";
             return true;
         } catch (err) {
             if (errorDisplay !== null) errorDisplay.innerText = err;
             else alert(err);
+            errorDisplay.style.color = "red";
             return false;
         }
     }

@@ -1,8 +1,18 @@
 import bg from "../assets/img/fh5_template.jpg";
 import React, { Component, useState } from "react";
+import { Start } from "../lib/login";
 
 export default class Connexion extends Component {
 
+
+    // when the component is mounted
+    componentDidMount() {
+        Start();
+    }
+
+    componentDidUpdate() {
+        Start();
+    }
 
     constructor(props: any) {
         super(props);
@@ -19,11 +29,7 @@ export default class Connexion extends Component {
     render()
     {
         // @ts-ignore
-        const [focusE, setFocusE] = [this.state.focusE, this.state.setFocusE];
-        // @ts-ignore
-        const [focusP, setFocusP] = [this.state.focusP, this.state.setFocusP]
-        // @ts-ignore
-        const [focusS, setFocusS] = [this.state.focusS, this.state.setFocusS]
+        const { focusE, setFocusE, focusP, setFocusP, focusS, setFocusS } = this.state;
 
         return (
             <div className="absolute w-full h-full flex items-center justify-around">
@@ -58,10 +64,11 @@ export default class Connexion extends Component {
                 after:origin-center after:transition-transform after:duration-200 after:bg-blue 
                 ${focusS && "after:scale-x-100"} ${!focusS && "after:scale-x-0"}`}>
                         <p className="font-normal text-[14px] opacity-80 text-black leading-none">Serveur</p>
-                        <input type="text" id="server" className="w-full border-b border-b-[#00000026] py-1" value="https://launcher.veagle.fr" onFocus={() => { setFocusS(true) }} onBlur={() => { setFocusS(false) }} />
+                        <input type="text" id="server" className="w-full border-b border-b-[#00000026] py-1" defaultValue="https://launcher.veagle.fr" onFocus={() => { setFocusS(true) }} onBlur={() => { setFocusS(false) }} />
                     </div>
 
-                    <div id="errorDisplay" className="text-red-500 font-medium text-center mt-4 "></div>
+                    <div id="errorDisplay" className="text-red-500 font-medium text-center mt-8"></div>
+
                     <button id="submit" className="font-normal text-[14px] bg-blue w-full h-40 rounded-full mt-40 hover:bg-blue hover:bg-opacity-90" >Se connecter</button>
                 </div>
             </div>

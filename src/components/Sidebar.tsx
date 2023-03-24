@@ -25,17 +25,17 @@ function Sidebar() {
                         <Icon path={shopI} color="auto"/>
                     </NavLink>
 
-                    <NavLink to="/">
-                        <Icon path={searchI} color="auto"/>
-                    </NavLink>
+                    {/*<NavLink to="/">*/}
+                    {/*    <Icon path={searchI} color="auto"/>*/}
+                    {/*</NavLink>*/}
 
-                    <NavLink to="/">
-                        <Icon path={downloadI} color="auto"/>
-                    </NavLink>
+                    {/*<NavLink to="/">*/}
+                    {/*    <Icon path={downloadI} color="auto"/>*/}
+                    {/*</NavLink>*/}
 
-                    <NavLink to="/Connexion">
-                        <Icon path={settingsI} color="auto"/>
-                    </NavLink>
+                    {/*<NavLink to="/Connexion">*/}
+                    {/*    <Icon path={settingsI} color="auto"/>*/}
+                    {/*</NavLink>*/}
                 </nav>
 
                 <div className="w-50 h-50 mb-10"></div>
