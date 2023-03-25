@@ -8,11 +8,15 @@ import tryConnect from './lib/start';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
 import './css/app.css';
+
 import App from "./app";
+import Loading from "./components/Loading";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+root.render(React.createElement(Loading));
 
 async function Run()
 {

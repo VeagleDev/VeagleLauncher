@@ -15,7 +15,7 @@ function App(props: any) {
       <Routes>
           { props.connected ?
               <Route path='/' element={<Layout/>} >
-                  <Route index element={<Library />}/>
+                  <Route index element={<Library games={props}/>}/>
                   <Route path="game" element={<Game />}/>
               </Route>
               :
