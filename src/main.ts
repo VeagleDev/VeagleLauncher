@@ -11,18 +11,32 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    show: false,
+    height: 800,
+    width: 1000,
+    title: "Griff Launcher",
+    icon: "src/assets/icon.png",
+    titleBarStyle: 'hiddenInset',
+    minWidth: 700,
+    minHeight: 500,
+    backgroundColor: "#333333",
+    darkTheme: true,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
 
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  // mainWindow.webContents.openDevTools();
+  mainWindow.hide();
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+    .then(() => {
+        mainWindow.show();
+    });
 };
 
 app.on('ready', createWindow);
+
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();

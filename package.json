@@ -1,6 +1,6 @@
 {
-  "name": "veaglelauncher",
-  "productName": "VeagleLauncher",
+  "name": "griff",
+  "productName": "Griff",
   "version": "1.2.0",
   "description": "Le lanceur de jeu avec bibliothèques privées créé par Veagle.",
   "main": ".webpack/main",
