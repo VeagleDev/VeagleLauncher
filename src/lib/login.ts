@@ -48,10 +48,18 @@ export function Start() {
     submit.addEventListener("click", () => {
         if (isValid()) {
             console.log("Valid");
+            let gameServer = server.value + "/api";
+            // If the game server doesn't start with http, we add it
+            if (!gameServer.startsWith("http")) {
+                gameServer = "http://" + gameServer;
+            }
+
+            console.log("Serveur: " + gameServer)
+
             const credentials = {
                 pseudo: pseudo.value,
                 password: password.value,
-                server: server.value + "/api",
+                server: gameServer,
                 token: "",
                 id: 0
             }
