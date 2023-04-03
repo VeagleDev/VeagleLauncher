@@ -2,6 +2,7 @@
 
 - `pierrbt` : Pour le backend et la distribution
 - `nicolasfsn` : Pour le frontend 
+- `Demitomo` : Pour les logos
 
 
 
