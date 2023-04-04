@@ -35,6 +35,7 @@ export default class Popup extends Component {
 
         // @ts-ignore
         const cards = [
+            // @ts-ignore
             ...this.state.cards,
             newCard
         ]
