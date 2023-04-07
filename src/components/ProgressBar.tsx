@@ -5,6 +5,13 @@ const ProgressBlock = (props: any) => {
         return <div>Erreur: les props sont incorrectes.</div>;
     }
 
+    return (
+        <div className="flex flex-col ">
+            <span className="">Étape du téléchargement : {props.state}</span>
+            <span className="">Pourcentage du téléchargement : {props.percentage}%</span>
+        </div>
+    )
+
 
 };
 
