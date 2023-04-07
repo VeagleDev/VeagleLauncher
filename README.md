@@ -1,7 +1,7 @@
 Griff Launcher
 ==============
 
-Griff Launcher est un lanceur de jeu à bibliothèques privées créé par Griff. C'est une application Electron codée en TypeScript et utilisant React. Le projet est encore en développement et les Pull Requests ou suggestions sont les bienvenues!
+Griff est un lanceur de jeu à bibliothèques privées créé par Griff. C'est une application Electron codée en TypeScript et utilisant React. Le projet est encore en développement et les Pull Requests ou suggestions sont les bienvenues!
 
 ![Griff Launcher Screenshot](https://i.imgur.com/rbv6qW3.png)
 
