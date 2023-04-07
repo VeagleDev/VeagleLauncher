@@ -37,6 +37,8 @@ Le serveur de Griff est écrit en utilisant Node.js et le framework Express, qui
 
 La base de données utilisée pour Griff-Launcher est une base de données MySQL/MariaDB, qui est gérée par Sequelize, un ORM (Object-Relational Mapping) pour Node.js. Cela permet à l'application d'interagir avec la base de données de manière plus intuitive, en utilisant des objets JavaScript plutôt que des requêtes SQL brutes. L'utilisation de Sequelize rend également le code plus maintenable et évite les erreurs courantes liées à la gestion des bases de données.
 
+Visitez [VeagleLauncher-API](https://github.com/pierrbt/VeagleLauncher-API) pour pouvoir installer l'API et voir les détails.
+
 
 Contribuer
 ----------
