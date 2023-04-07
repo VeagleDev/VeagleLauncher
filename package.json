@@ -43,7 +43,7 @@
     "node-7z": "^3.0.0",
     "node-fetch": "^2.6.7",
     "node-loader": "^2.0.0",
-    "postcss-loader": "^7.0.2",
+    "postcss-loader": "^7.2.4",
     "raw-loader": "^4.0.2",
     "style-loader": "^3.3.1",
     "svg-url-loader": "^8.0.0",
