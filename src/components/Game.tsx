@@ -10,10 +10,7 @@ import ProgressBlock from "./ProgressBar";
 import InstallStatus from "../lib/interfaces/gamemanagerinterfaces";
 
 const latestNews = [] as InstallStatus;
-function getUpdates(news: InstallStatus[])
-{
-    latestNews = news;
-}
+
 
 function Game() {
     const location = useLocation()
@@ -33,6 +30,27 @@ function Game() {
     }
 
     const [progress, setProgress] = useState("disabled");
+    const [infos, setInfos] = useState([]);
+
+    function getUpdates(news: InstallStatus[])
+    {
+        console.log("Nouvelles informations !!");
+        if(news != latestNews)
+        {
+            latestNews = news;
+            for(let game of latestNews)
+            {
+                if(game.gameId == key.id)
+                {
+                    step = game.status;
+                    percentage = game.progress;
+                }
+            }
+            setInfos(latestNews);
+        }        
+    }
+
+    api.setInstallListener(getUpdates);
 
     // @ts-ignore
     return (
