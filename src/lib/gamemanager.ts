@@ -246,10 +246,35 @@ class GameManager {
 
 
     // remove a game from the games list
-    async removeGameById(id: number): Promise<undefined> {
-        // TODO: implement
-        return undefined;
-    }
+    async removeGameById(id: number): Promise<any> {
+        const path = app.getPath('userData') + '/options.json';
+        if (fs.existsSync(path)) {
+          const read = JSON.parse(fs.readFileSync(path, 'utf8'));
+          const games = read.games;
+      
+          for (let game of games) {
+            if (game.id == id) {
+              const executable = game.path;
+              const parentDir = path.dirname(executable); // obtenir le chemin du dossier parent
+              const parentId = path.basename(parentDir); // obtenir le nom du dossier parent
+      
+              if (parentId !== String(id)) {
+                throw new Error(`Le nom du dossier parent ne correspond pas à l'ID du jeu ${id}`);
+              }
+      
+              try {
+                fs.accessSync(parentDir, fs.constants.W_OK); // vérifier que le dossier n'est pas protégé
+              } catch (err) {
+                throw new Error(`Le dossier parent ${parentDir} est protégé contre la suppression`);
+              }
+      
+              fs.rmSync(parentDir, { recursive: true }); // supprimer le dossier récursivement
+              console.log(`Dossier ${parentDir} supprimé`);            
+            }
+          }
+        }
+        return true;
+      }
 }
 
 
