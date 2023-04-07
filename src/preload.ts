@@ -10,7 +10,7 @@ setInterval(() => {
     installListener(
         ipcRenderer.sendSync('update-status')
     );
-}, 1000);
+}, 200);
 
 contextBridge.exposeInMainWorld('api', {
     saveCredentials: (credentials: []) => {

@@ -7,12 +7,32 @@ import Icon from './Icon'
 import downloadI from '../assets/icons/download.txt'
 import starI from '../assets/icons/star.txt'
 import ProgressBlock from "./ProgressBar";
+import InstallStatus from "../lib/interfaces/gamemanagerinterfaces";
+
+const latestNews = [] as InstallStatus;
+function getUpdates(news: InstallStatus[])
+{
+    latestNews = news;
+}
 
 function Game() {
     const location = useLocation()
     const { key } = location.state
 
-    const [progress, setProgress] = useState(false);
+    const gameId = key.id;
+    let percentage = 0;
+    let step = "error";
+
+    for(let game of latestNews)
+    {
+        if(game.gameId == gameId)
+        {
+            percentage = game.progress;
+            step = game.status;
+        }
+    }
+
+    const [progress, setProgress] = useState("disabled");
 
     // @ts-ignore
     return (
@@ -42,18 +62,15 @@ function Game() {
 
                     <div className="flex flex-col justify-between">
                         <button className="w-full h-[50px] bg-gradient-to-r from-orange to-dark-orange font-normal rounded my-20 uppercase tracking-wide" onClick={() => {
-
-
                             console.log("Téléchargement de " + key.name);
-                            console.log("Identifiant: " + key.id);
-
-                            setProgress(true);
+                            setProgress("enable");
 
                             console.log("Début du téléchargement");
                             api.installGame(key.id)
                                 .then((res: any) => {
                                     console.log("Téléchargement terminé");
                                     console.log(res);
+                                    setProgress("finished")
                                 })
                                 .catch((err: any) => {
                                     console.log("Erreur lors du téléchargement");
@@ -64,8 +81,9 @@ function Game() {
                             <span className="text-[16px]">Télécharger</span>
                         </button>
 
-                        <div className={progress ? "" : "hidden"}>
-                            <ProgressBlock state="downloading" percentage={53} />
+                        <div className={(progress === "disabled") ? "hidden" : ""}>
+                            {(progress === "enabled") ? <ProgressBlock state={step} percentage={percentage} /> : ""}
+                            {(progress === "finished") ? `${key.name} a fini de télécharger` : ""}
                         </div>
 
                         <button disabled={true} className="w-full h-[50px] border font-normal rounded mb-20 uppercase tracking-wider tracking-wider hover:outline-none hover:bg-gray-300 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" >

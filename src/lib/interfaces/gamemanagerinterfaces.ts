@@ -10,7 +10,7 @@ interface Game {
     size: number;
 }
 
-interface InstallStatus {
+export default interface InstallStatus {
     gameId: number;
     status: string;
 
