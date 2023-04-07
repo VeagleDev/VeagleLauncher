@@ -38,7 +38,6 @@ function Game() {
     {
         if(news != latestNews)
         {
-            console.log("Nouvelles informations !!")
             latestNews = news;
             for(const game of latestNews)
             {
@@ -54,8 +53,6 @@ function Game() {
     }
 
     api.setInstallListener(getUpdates);
-
-    console.log("Progression : " + percentage + "%");
 
     // @ts-ignore
     return (
@@ -115,10 +112,6 @@ function Game() {
                         </button>
 
                         <div className={(progress === "disabled") ? "hidden" : ""}>
-                            {/* {(progress === "enabled") ? <ProgressBlock state={step} percentage={percentage} /> : ""}
-                            {(progress === "finished") ? `${key.name} a fini de télécharger` : ""}
-                            {(progress === "error") ? `L'installation de ${key.name} a échoué !` : ""} */}
-                            { /* @ts-ignore */}
                             <DownloadBox informations={{"step": step, "percentage": percentage}} />
                         </div>
 

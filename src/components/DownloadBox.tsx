@@ -19,12 +19,9 @@ function getStateLabel(state: string) {
 }
 
 function DownloadBox(informations: any) {
-    console.log(informations)
     // @ts-ignore
     const step = informations.informations.step;
     const percentage = informations.informations.percentage;
-
-    console.log("DownloadBox : " + step + " " + percentage);
     return (
         <div className="bg-gray-900 rounded-md shadow-lg px-6 py-8 mb-16">
             <div className="flex items-center mb-6">
