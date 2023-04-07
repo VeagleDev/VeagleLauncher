@@ -29,6 +29,15 @@ Système de communication inter-processus (IPC)
 
 Griff Launcher utilise le système de communication inter-processus (IPC) d'Electron pour communiquer entre le processus principal et le processus de rendu. Cela permet d'effectuer des tâches telles que la lecture et l'écriture de fichiers, l'accès aux ressources système et la communication avec des processus externes.
 
+
+Système serveur, hébergement des jeux
+-----------------------------------------------
+
+Le serveur de Griff est écrit en utilisant Node.js et le framework Express, qui permet de construire facilement des applications Web. L'API du serveur est mise à disposition sous forme de JSON, ce qui permet à l'application cliente de communiquer avec le serveur de manière efficace.
+
+La base de données utilisée pour Griff-Launcher est une base de données MySQL/MariaDB, qui est gérée par Sequelize, un ORM (Object-Relational Mapping) pour Node.js. Cela permet à l'application d'interagir avec la base de données de manière plus intuitive, en utilisant des objets JavaScript plutôt que des requêtes SQL brutes. L'utilisation de Sequelize rend également le code plus maintenable et évite les erreurs courantes liées à la gestion des bases de données.
+
+
 Contribuer
 ----------
 
