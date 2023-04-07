@@ -48,6 +48,21 @@ class GameManager {
                     return [false, "Le jeu est déjà en cours d'installation"];
                 }
             }
+            // check if the game is already installed
+            const file = app.getPath('userData') + '/options.json';
+            if (fs.existsSync(file)) {
+                const read = JSON.parse(fs.readFileSync(file, 'utf8'));
+                for(const game of read.games) {
+                    if(game.id == id) {
+                        return [false, "Le jeu est déjà installé"];
+                    }
+                    else
+                    {
+                        console.log(`${game.id} !== ${id}`)
+                    }
+                }
+            }
+
             this.installStatusList.push(game);
             const response = await fetch(this.userServer + "/games/install", {
                 method: "POST",

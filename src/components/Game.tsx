@@ -85,24 +85,33 @@ function Game() {
 
                     <div className="flex flex-col justify-between">
                         <button className="w-full h-[50px] bg-gradient-to-r from-orange to-dark-orange font-normal rounded my-20 uppercase tracking-wide" onClick={() => {
-                            console.log("Téléchargement de " + key.name);
-                            setProgress("enabled");
 
-                            console.log("Début du téléchargement");
-                            api.installGame(key.id)
-                                .then((res: any) => {
-                                    console.log("Téléchargement terminé");
-                                    console.log(res);
-                                    setProgress("finished");
-                                })
-                                .catch((err: any) => {
-                                    console.log("Erreur lors du téléchargement");
-                                    console.log(err);
-                                    setProgress("error");
-                                });
+                            if(key.installed)
+                            {
+                                console.log("Lancement de " + key.name);
+                            }
+                            else
+                            {
+                                console.log("Téléchargement de " + key.name);
+                                setProgress("enabled");
+
+                                console.log("Début du téléchargement");
+                                api.installGame(key.id)
+                                    .then((res: any) => {
+                                        console.log("Téléchargement terminé");
+                                        console.log(res);
+                                        setProgress("finished");
+                                    })
+                                    .catch((err: any) => {
+                                        console.log("Erreur lors du téléchargement");
+                                        console.log(err);
+                                        setProgress("error");
+                                    });
+                            }
+
                         }
                         }>
-                            <span className="text-[16px]">Télécharger</span>
+                            <span className="text-[16px]">{key.installed ? "Lancer" : "Télécharger"}</span>
                         </button>
 
                         <div className={(progress === "disabled") ? "hidden" : ""}>

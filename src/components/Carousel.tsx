@@ -142,7 +142,12 @@ const Carousel = (props: any) => {
                             >
                                 <div
                                     className="rounded-full bg-orange p-1 shadow-xl translate-y-[140%] group-hover:-translate-y-0 transition-all duration-500">
-                                    <Icon path={playI} color="#FFFFFF"/>
+                                    {resource.installed
+                                        ?
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 48 960 960" width="30" className="fill-[#FFFFFF]"><path d="M320 853V293l440 280-440 280Zm60-280Zm0 171 269-171-269-171v342Z"/></svg>
+                                        :
+                                        <Icon path={downloadI} color="#FFFFFF"/>
+                                    }
                                 </div>
 
                                 <p className="relative after:absolute after:-mb-10 after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-orange translate-y-[120%] group-hover:-translate-y-0 transition-all duration-500 delay-200">
