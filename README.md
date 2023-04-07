@@ -8,11 +8,11 @@
 
 	<p>Pour installer Griff Launcher, vous pouvez cloner le projet et exécuter les commandes suivantes:</p>
 
-```bash
-cd Griff-Launcher
-npm install
-npm start
-```
+	<pre><code>cd Griff-Launcher
+	npm install
+	npm start
+	</code></pre>
+	
 	<h2>Technologies utilisées</h2>
 
 	<ul>
