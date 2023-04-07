@@ -26,7 +26,6 @@ Technologies utilisées
 *   [Electron](https://electronjs.org/)
 *   [Webpack](https://webpack.js.org/)
 *   [Electron-Forge](https://www.electronforge.io/)
-*   
 
 Système de communication inter-processus (IPC)
 ----------------------------------------------
