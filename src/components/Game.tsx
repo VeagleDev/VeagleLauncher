@@ -20,7 +20,7 @@ function Game() {
     let percentage = 0;
     let step = "error";
 
-    for(let game of latestNews)
+    for(const game of latestNews)
     {
         if(game.gameId == gameId)
         {
@@ -38,7 +38,7 @@ function Game() {
         if(news != latestNews)
         {
             latestNews = news;
-            for(let game of latestNews)
+            for(const game of latestNews)
             {
                 if(game.gameId == key.id)
                 {

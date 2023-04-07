@@ -220,7 +220,7 @@ class GameManager {
             const read = JSON.parse(fs.readFileSync(path, 'utf8'));
             const games = read.games;
            
-            for(let game of games)
+            for(const game of games)
             {
                 if(game.id == id)
                 {
@@ -252,7 +252,7 @@ class GameManager {
           const read = JSON.parse(fs.readFileSync(path, 'utf8'));
           const games = read.games;
       
-          for (let game of games) {
+          for (const game of games) {
             if (game.id == id) {
               const executable = game.path;
               const parentDir = path.dirname(executable); // obtenir le chemin du dossier parent

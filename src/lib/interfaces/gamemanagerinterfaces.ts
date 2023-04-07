@@ -20,7 +20,7 @@ export default interface InstallStatus {
     progress: number;
 }
 
-export default interface LaunchedGame {
+export interface LaunchedGame {
     gameId: number;
     status: string;
 }
