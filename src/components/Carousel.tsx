@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import {useEffect, useRef, useState} from 'react';
 import Icon from './Icon';
 import downloadI from '../assets/icons/download.txt'
-
+import playI from '../assets/icons/play.txt'
 // Data
 //import data from '../data.json';
 
@@ -134,7 +134,7 @@ const Carousel = (props: any) => {
 
             {data.length !== 0 ? data.map((resource: any) => {
                     return (
-                        <Link to="/Game" className="carousel-item inline-block" state={{key: resource}}>
+                        <Link to="/Game" className="carousel-item inline-block" state={{game: resource}}>
                             <div
                                 className="w-cell h-full bg-orange rounded-xl flex justify-between items-end pb-10 px-10 bg-no-repeat bg-cover bg-top overflow-hidden
                         group"
@@ -142,7 +142,7 @@ const Carousel = (props: any) => {
                             >
                                 <div
                                     className="rounded-full bg-orange p-1 shadow-xl translate-y-[140%] group-hover:-translate-y-0 transition-all duration-500">
-                                    <Icon path={downloadI} color="#FFFFFF"/>
+                                    <Icon path={playI} color="#FFFFFF"/>
                                 </div>
 
                                 <p className="relative after:absolute after:-mb-10 after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-orange translate-y-[120%] group-hover:-translate-y-0 transition-all duration-500 delay-200">

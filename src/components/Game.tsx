@@ -8,6 +8,7 @@ import downloadI from '../assets/icons/download.txt'
 import starI from '../assets/icons/star.txt'
 import ProgressBlock from "./ProgressBar";
 import InstallStatus from "../lib/interfaces/gamemanagerinterfaces";
+import DownloadBox from "./DownloadBox";
 
 let latestNews:any = [];
 
@@ -16,7 +17,7 @@ let step = "error";
 
 function Game() {
     const location = useLocation()
-    const { key } = location.state
+    const key = location.state.game;
 
     const gameId = key.id;
 
@@ -45,6 +46,7 @@ function Game() {
                 {
                     step = game.status;
                     percentage = game.progress;
+                    setProgress("enabled");
                 }
             }
             setInfos(latestNews);
@@ -104,9 +106,11 @@ function Game() {
                         </button>
 
                         <div className={(progress === "disabled") ? "hidden" : ""}>
-                            {(progress === "enabled") ? <ProgressBlock state={step} percentage={percentage} /> : ""}
+                            {/* {(progress === "enabled") ? <ProgressBlock state={step} percentage={percentage} /> : ""}
                             {(progress === "finished") ? `${key.name} a fini de télécharger` : ""}
-                            {(progress === "error") ? `L'installation de ${key.name} a échoué !` : ""}
+                            {(progress === "error") ? `L'installation de ${key.name} a échoué !` : ""} */}
+                            { /* @ts-ignore */}
+                            <DownloadBox informations={{"step": step, "percentage": percentage}} />
                         </div>
 
                         <button disabled={true} className="w-full h-[50px] border font-normal rounded mb-20 uppercase tracking-wider tracking-wider hover:outline-none hover:bg-gray-300 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" >
