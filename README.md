@@ -9,8 +9,9 @@ Installation
 ------------
 
 Pour installer Griff Launcher, vous pouvez cloner le projet et exécuter les commandes suivantes:
-```npm
-    cd Griff-Launcher
+```bash
+    git clone https://github.com/VeagleDev/VeagleLauncher.git
+    cd VeagleLauncher
     npm install
     npm start
 ```
