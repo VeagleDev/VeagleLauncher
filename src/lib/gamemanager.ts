@@ -15,18 +15,11 @@ import "./interfaces/gamemanagerinterfaces";
 
 class GameManager {
     public installStatusList: InstallStatus[] = [];
-    /** Liste des jeux en installation **/
     private launchedGames: LaunchedGame[] = [];
-    /** Liste des jeux en cours de lancement **/
 
     private userID: number;
-    /** ID de l'utilisateur **/
-
     private userToken: string;
-    /** Token de l'utilisateur **/
     private userServer: string;
-
-    /** Adresse du serveur **/
 
     constructor(id: number, token: string, server: string) {
         this.userID = id;
@@ -165,6 +158,8 @@ class GameManager {
                             id: gameId,
                             path: executablePath,
                         });
+                        fs.writeFileSync(path, read)
+                        console.log("Jeu ajouté à la liste");
                     } else {
                         game.status = "error";
                         game.message = "Impossible de trouver le fichier de configuration";
@@ -178,7 +173,7 @@ class GameManager {
                     const shortcutPath = app.getPath("desktop") + "/" + name + ".lnk";
                     await ws.create(shortcutPath, {
                         target: executablePath,
-                        desc: "VeagleLauncher : " + name,
+                        desc: "Griff : " + name,
                         icon: executablePath,
                     }, (err: any) => {
                         if (err) {
@@ -217,10 +212,36 @@ class GameManager {
 
     // launch a game by ID
     async launchGameById(id: number) {
-        // TODO: implement
+        const status: LaunchedGame[] = {gameId: id, status: "starting"};
+        launchedGames.push(status);
 
-        /** spawn() the game executable **/
+        const path = app.getPath('userData') + '/options.json';
+        if (fs.existsSync(path)) {
+            const read = JSON.parse(fs.readFileSync(path, 'utf8'));
+            const games = read.games;
+           
+            for(let game of games)
+            {
+                if(game.id == id)
+                {
+                    const executable = game.path;
+                    const process = spawn(executable);
 
+
+                    process.on('error', () => {
+                        status.status = "runerror";
+                    });
+
+                    process.on('exit', (code) => {
+                        if (code === 0) {
+                            status.status = "exit";
+                        } else {
+                            status.status = "apperror";
+                        }
+                      });
+                }
+            }
+        }
     }
 
 
