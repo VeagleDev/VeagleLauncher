@@ -70,11 +70,12 @@ function Game() {
                                 .then((res: any) => {
                                     console.log("Téléchargement terminé");
                                     console.log(res);
-                                    setProgress("finished")
+                                    setProgress("finished");
                                 })
                                 .catch((err: any) => {
                                     console.log("Erreur lors du téléchargement");
                                     console.log(err);
+                                    setProgress("error");
                                 });
                         }
                         }>
@@ -84,6 +85,7 @@ function Game() {
                         <div className={(progress === "disabled") ? "hidden" : ""}>
                             {(progress === "enabled") ? <ProgressBlock state={step} percentage={percentage} /> : ""}
                             {(progress === "finished") ? `${key.name} a fini de télécharger` : ""}
+                            {(progress === "error") ? `L'installation de ${key.name} a échoué !` : ""}
                         </div>
 
                         <button disabled={true} className="w-full h-[50px] border font-normal rounded mb-20 uppercase tracking-wider tracking-wider hover:outline-none hover:bg-gray-300 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" >
