@@ -9,16 +9,17 @@ import starI from '../assets/icons/star.txt'
 import ProgressBlock from "./ProgressBar";
 import InstallStatus from "../lib/interfaces/gamemanagerinterfaces";
 
-const latestNews = [] as InstallStatus;
+let latestNews:any = [];
 
+let percentage = 0;
+let step = "error";
 
 function Game() {
     const location = useLocation()
     const { key } = location.state
 
     const gameId = key.id;
-    let percentage = 0;
-    let step = "error";
+
 
     for(const game of latestNews)
     {
@@ -34,9 +35,9 @@ function Game() {
 
     function getUpdates(news: InstallStatus[])
     {
-        console.log("Nouvelles informations !!");
         if(news != latestNews)
         {
+            console.log("Nouvelles informations !!")
             latestNews = news;
             for(const game of latestNews)
             {
@@ -51,6 +52,8 @@ function Game() {
     }
 
     api.setInstallListener(getUpdates);
+
+    console.log("Progression : " + percentage + "%");
 
     // @ts-ignore
     return (
@@ -81,7 +84,7 @@ function Game() {
                     <div className="flex flex-col justify-between">
                         <button className="w-full h-[50px] bg-gradient-to-r from-orange to-dark-orange font-normal rounded my-20 uppercase tracking-wide" onClick={() => {
                             console.log("Téléchargement de " + key.name);
-                            setProgress("enable");
+                            setProgress("enabled");
 
                             console.log("Début du téléchargement");
                             api.installGame(key.id)

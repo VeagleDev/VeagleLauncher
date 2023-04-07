@@ -10,7 +10,9 @@ const {path7za} = require('7zip-bin');
 const ws = require('windows-shortcuts');
 const spawn = require('child_process').spawn;
 const diskSpace = require('check-disk-space').default;
-import "./interfaces/gamemanagerinterfaces";
+const pathModule = require('path');
+import InstallStatus, {LaunchedGame} from "./interfaces/gamemanagerinterfaces";
+
 
 
 class GameManager {
@@ -149,7 +151,7 @@ class GameManager {
                     game.message = "Ajout du jeu à la liste";
                     game.progress = 0;
 
-                    const executablePath = installPath + "/" + executable;
+                    const executablePath = installPath + executable;
                     const path = app.getPath('userData') + '/options.json';
 
                     if (fs.existsSync(path)) {
@@ -158,8 +160,10 @@ class GameManager {
                             id: gameId,
                             path: executablePath,
                         });
-                        fs.writeFileSync(path, read)
-                        console.log("Jeu ajouté à la liste");
+                        // write back to file
+                        fs.writeFileSync(path, JSON.stringify(read));
+                        console.log(`Wrote ${read} to ${path}`)
+                        console.log("ok");
                     } else {
                         game.status = "error";
                         game.message = "Impossible de trouver le fichier de configuration";
@@ -212,8 +216,12 @@ class GameManager {
 
     // launch a game by ID
     async launchGameById(id: number) {
-        const status: LaunchedGame[] = {gameId: id, status: "starting"};
-        launchedGames.push(status);
+        // @ts-ignore
+        let status: LaunchedGame;
+        status.gameId = id;
+        status.status = "launching";
+
+        this.launchedGames.push(status);
 
         const path = app.getPath('userData') + '/options.json';
         if (fs.existsSync(path)) {
@@ -232,7 +240,7 @@ class GameManager {
                         status.status = "runerror";
                     });
 
-                    process.on('exit', (code) => {
+                    process.on('exit', (code: number) => {
                         if (code === 0) {
                             status.status = "exit";
                         } else {
@@ -255,8 +263,8 @@ class GameManager {
           for (const game of games) {
             if (game.id == id) {
               const executable = game.path;
-              const parentDir = path.dirname(executable); // obtenir le chemin du dossier parent
-              const parentId = path.basename(parentDir); // obtenir le nom du dossier parent
+              const parentDir = pathModule.dirname(executable); // obtenir le chemin du dossier parent
+              const parentId = pathModule.basename(parentDir); // obtenir le nom du dossier parent
       
               if (parentId !== String(id)) {
                 throw new Error(`Le nom du dossier parent ne correspond pas à l'ID du jeu ${id}`);
