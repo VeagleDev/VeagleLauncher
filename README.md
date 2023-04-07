@@ -22,7 +22,11 @@ Technologies utilisées
 
 *   [TypeScript](https://www.typescriptlang.org/)
 *   [React](https://reactjs.org/)
+*   [TailwindCSS](https://tailwindcss.com/)
 *   [Electron](https://electronjs.org/)
+*   [Webpack](https://webpack.js.org/)
+*   [Electron-Forge](https://www.electronforge.io/)
+*   
 
 Système de communication inter-processus (IPC)
 ----------------------------------------------
@@ -61,3 +65,5 @@ Licence
 -------
 
 Ce projet est sous licence GPL-3.0.
+
+© 2023 Griff, Veagle. Tous droits réservés.
