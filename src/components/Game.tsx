@@ -6,9 +6,9 @@ import {useLocation} from 'react-router-dom'
 import Icon from './Icon'
 import downloadI from '../assets/icons/download.txt'
 import starI from '../assets/icons/star.txt'
-import ProgressBlock from "./ProgressBar";
 import InstallStatus from "../lib/interfaces/gamemanagerinterfaces";
 import DownloadBox from "./DownloadBox";
+import {setGameInstalled} from "./Library";
 
 let latestNews:any = [];
 
@@ -81,11 +81,44 @@ function Game() {
                     <img src={key.icon} alt="" className="w-[100%] h-[450px] object-cover object-top rounded"/>
 
                     <div className="flex flex-col justify-between">
-                        <button className="w-full h-[50px] bg-gradient-to-r from-orange to-dark-orange font-normal rounded my-20 uppercase tracking-wide" onClick={() => {
+                        <button id="launchGame" className="launchGame w-full h-[50px] bg-gradient-to-r from-orange to-dark-orange font-normal rounded my-20 uppercase tracking-wide transition-all" onClick={() => {
 
                             if(key.installed)
                             {
+                                // set a greyscale and change the text to "Chargement" and disable the button
+                                const launchGame = document.getElementById("launchGame");
+                                launchGame.style.filter = "grayscale(100%)";
+                                launchGame.style.cursor = "not-allowed";
+                                launchGame.innerHTML = "Lancement";
+                                // make a 3 dots animation
+                                let dots = 0;
+
+                                const interval = setInterval(() => {
+                                    if(dots < 3)
+                                    {
+                                        launchGame.innerHTML += ".";
+                                        dots++;
+                                    }
+                                    else
+                                    {
+                                        launchGame.innerHTML = "Lancement";
+                                        dots = 0;
+                                    }
+                                }, 1000);
+
                                 console.log("Lancement de " + key.name);
+                                api.launchGame(key.id)
+                                    .then((res: any) => {
+                                        console.log("Lancement terminé");
+                                        console.log(res);
+                                        launchGame.style.filter = "none";
+                                        launchGame.style.cursor = "pointer";
+                                        launchGame.innerHTML = "Lancer";
+                                        clearInterval(interval);
+                                    })
+                                    .catch((err: any) => {
+                                        console.log("Erreur lors du lancement");
+                                    });
                             }
                             else
                             {
@@ -97,6 +130,10 @@ function Game() {
                                     .then((res: any) => {
                                         console.log("Téléchargement terminé");
                                         console.log(res);
+
+                                        key.installed = true;
+                                        setGameInstalled(key.id, true);
+
                                         setProgress("finished");
                                     })
                                     .catch((err: any) => {

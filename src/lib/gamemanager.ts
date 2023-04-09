@@ -231,42 +231,43 @@ class GameManager {
 
     // launch a game by ID
     async launchGameById(id: number) {
-        // @ts-ignore
-        let status: LaunchedGame;
-        status.gameId = id;
-        status.status = "launching";
+        return new Promise((resolve, reject) => {
+            // @ts-ignore
+            const status: LaunchedGame = {gameId: id, status: "launching"};
+            this.launchedGames.push(status);
 
-        this.launchedGames.push(status);
+            const path = app.getPath('userData') + '/options.json';
+            if (fs.existsSync(path)) {
+                const read = JSON.parse(fs.readFileSync(path, 'utf8'));
+                const games = read.games;
 
-        const path = app.getPath('userData') + '/options.json';
-        if (fs.existsSync(path)) {
-            const read = JSON.parse(fs.readFileSync(path, 'utf8'));
-            const games = read.games;
-           
-            for(const game of games)
-            {
-                if(game.id == id)
+                for(const game of games)
                 {
-                    const executable = game.path;
-                    const process = spawn(executable);
+                    if(game.id == id)
+                    {
+                        const executable = game.path;
+                        const process = spawn(executable, [], {detached: true, stdio: 'ignore'});
 
+                        process.on('error', () => {
+                            status.status = "runerror";
+                            reject(new Error("Impossible de lancer le jeu"));
+                        });
 
-                    process.on('error', () => {
-                        status.status = "runerror";
-                    });
-
-                    process.on('exit', (code: number) => {
-                        if (code === 0) {
-                            status.status = "exit";
-                        } else {
-                            status.status = "apperror";
-                        }
-                      });
+                        process.on('exit', (code: number) => {
+                            if (code === 0) {
+                                status.status = "exit";
+                                resolve(true);
+                            } else {
+                                status.status = "apperror";
+                                reject(new Error("Une erreur s'est produite lors du lancement du jeu"));
+                            }
+                        });
+                    }
                 }
             }
-        }
-    }
+        });
 
+    }
 
     // remove a game from the games list
     async removeGameById(id: number): Promise<any> {
@@ -323,6 +324,13 @@ function Start() {
         ipcMain.on("update-status", async (event: IpcMainEvent) => {
             event.returnValue = manager.installStatusList;
             return;
+        });
+
+        ipcMain.removeHandler("launchGame");
+        ipcMain.handle("launchGame", async (event: IpcMainEvent, id: number) => {
+            return await manager.launchGameById(id).then((status: any) => {
+                return status;
+            });
         });
     }
     else {

@@ -1,10 +1,23 @@
 import Landing from './Landing'
 import Carousel from './Carousel';
-import CardCarousel from './CardCarousel';
+import {useState} from "react";
 
 let Data: any = {"ressources": []};
+let setState = (state: any) => { return state; };
+export function setGameInstalled(id: number, installed: boolean) {
+    Data.ressources.forEach((element: any) => {
+        if(element.id === id)
+        {
+            element.installed = installed;
+        }
+    });
+    setState(true);
+}
 
 function Library(props: any = undefined) {
+    const [, setInstalled] = useState(false);
+    setState = setInstalled;
+
     if (!props) { /* empty */ }
     else
     {

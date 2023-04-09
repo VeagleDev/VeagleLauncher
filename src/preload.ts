@@ -19,6 +19,23 @@ contextBridge.exposeInMainWorld('api', {
     getCredentials: () => {
         return ipcRenderer.sendSync('get-credentials');
     },
+    launchGame: (game: number) => {
+        return new Promise((resolve, reject) => {
+            try {
+                ipcRenderer.invoke('launchGame', game)
+                    .then((res: any) => {
+                        console.log(res);
+                        resolve(res);
+                    })
+                    .catch((err: any) => {
+                        console.error(err);
+                        reject(err);
+                    });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    },
     installGame: (game: number) => {
         return new Promise((resolve, reject) => {
             try {
