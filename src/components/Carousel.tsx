@@ -2,9 +2,8 @@ import {Link} from 'react-router-dom'
 import {useEffect, useRef, useState} from 'react';
 import Icon from './Icon';
 import downloadI from '../assets/icons/download.txt'
-import playI from '../assets/icons/play.txt'
-// Data
-//import data from '../data.json';
+
+declare const api: any;
 
 const Carousel = (props: any) => {
     if(!props) {
@@ -134,14 +133,33 @@ const Carousel = (props: any) => {
 
             {data.length !== 0 ? data.map((resource: any) => {
                     return (
-                        <Link to="/Game" className="carousel-item inline-block" state={{game: resource}}>
+                        <Link to="/Game" className="carousel-item inline-block transition-all duration-500" state={{game: resource}}>
                             <div
                                 className="w-cell h-full bg-orange rounded-xl flex justify-between items-end pb-10 px-10 bg-no-repeat bg-cover bg-top overflow-hidden
-                        group"
+                        group transition-all duration-500"
                                 style={{backgroundImage: `url(${resource.background || ''})`}}
+
                             >
                                 <div
-                                    className="rounded-full bg-orange p-1 shadow-xl translate-y-[140%] group-hover:-translate-y-0 transition-all duration-500">
+                                    className="rounded-full bg-orange p-1 shadow-xl translate-y-[140%] group-hover:-translate-y-0 transition-all duration-500"
+                                    onClick={(event) => {
+                                        if (resource.installed) {
+                                            event.preventDefault();
+                                            // @ts-ignore
+                                            const el = event.target.parentElement.parentElement;
+                                            el.style.filter = 'grayscale(1) blur(2px)';
+
+                                            api.launchGame(resource.id)
+                                                .then(() => {
+                                                    el.style.filter = 'none';
+                                                })
+                                                .catch((err: any) => {
+                                                    console.log(err);
+                                                    el.style.filter = 'none';
+                                                });
+                                        }
+                                    }}
+                                >
                                     {resource.installed
                                         ?
                                         <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 48 960 960" width="30" className="fill-[#FFFFFF]"><path d="M320 853V293l440 280-440 280Zm60-280Zm0 171 269-171-269-171v342Z"/></svg>

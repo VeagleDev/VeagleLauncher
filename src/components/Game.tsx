@@ -80,8 +80,8 @@ function Game() {
                 <div className="fixed w-[350px] h-[650px] right-40">
                     <img src={key.icon} alt="" className="w-[100%] h-[450px] object-cover object-top rounded"/>
 
-                    <div className="flex flex-col justify-between">
-                        <button id="launchGame" className="launchGame w-full h-[50px] bg-gradient-to-r from-orange to-dark-orange font-normal rounded my-20 uppercase tracking-wide transition-all" onClick={() => {
+                    <div className="flex flex-col justify-between" >
+                        <button id="launchGame" className="launchGame w-full h-[50px] bg-gradient-to-r from-orange to-dark-orange font-normal rounded my-20 uppercase tracking-wide transition-all duration-500" onClick={() => {
 
                             if(key.installed)
                             {
