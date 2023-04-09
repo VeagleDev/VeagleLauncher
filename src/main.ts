@@ -9,13 +9,15 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+app.setName("Griff Launcher");
+
 const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     show: false,
     height: 800,
     width: 1000,
     title: "Griff Launcher",
-    icon: "src/assets/icon.png",
+    icon: "src/assets/app/icon.png",
     titleBarStyle: 'hiddenInset',
     minWidth: 700,
     minHeight: 500,

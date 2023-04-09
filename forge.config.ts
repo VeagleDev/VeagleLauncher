@@ -9,7 +9,18 @@ import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
-  packagerConfig: {},
+  packagerConfig: {
+    icon: '/src/assets/app/icon.png',
+    executableName: 'Griff',
+    win32metadata: {
+        CompanyName: 'Veagle',
+        FileDescription: 'Griff Launcher est un launcheur à bibliothèques privées par Veagle',
+        OriginalFilename: 'Griff',
+        ProductName: 'Griff Launcher',
+        InternalName: 'Griff',
+    },
+    asar: false,
+  },
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [

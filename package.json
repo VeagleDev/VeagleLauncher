@@ -17,6 +17,7 @@
   "copyright": "Copyright © 2023 Veagle",
   "company": "Veagle",
   "email": "contact@veagle.fr",
+  "icon": "src/assets/app/icon.png",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.5",
     "@electron-forge/maker-deb": "^6.0.5",
