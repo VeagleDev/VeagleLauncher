@@ -5,7 +5,6 @@ export default function tryConnect() {
     const preferences = api.getCredentials();
 
     if (preferences) {
-        console.log(preferences);
         const {id, server, token} = preferences.credentials;
         const installedGames = preferences.games;
 
@@ -39,8 +38,6 @@ export default function tryConnect() {
                         }
                     }
                 }
-
-                console.log(games);
                 return games;
 
             })
@@ -49,7 +46,6 @@ export default function tryConnect() {
                 return false;
             });
     } else {
-        console.error("No preferences found");
         return false;
     }
 }

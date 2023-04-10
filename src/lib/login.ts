@@ -13,7 +13,7 @@ const pseudoRegex = new RegExp("^[a-zA-Z0-9_]{3,16}$");
 const serverRegex = new RegExp("^(https?://)?([a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*.[a-zA-Z]{2,5}|localhost)(:[0-9]{1,5})?(/.*)?$");
 
 let onSuccessfulLogin = () => {
-    console.log("No callback on successful login")
+    warn("Pas de callback défini lors de la connexion")
 };
 
 export function setOnSuccessfulLogin(callback: any) {
@@ -35,7 +35,6 @@ export function Start() {
             if (!password.value) throw "Le mot de passe est vide";
             if (!pseudoRegex.test(pseudo.value)) throw "Le pseudo est invalide";
             if (!serverRegex.test(server.value)) throw "Le serveur est invalide";
-            //if(!passwordRegex.test(password.value)) throw "Password is invalid";
             return true;
         } catch (err) {
             if (errorDisplay !== null) errorDisplay.innerText = err;
@@ -47,14 +46,11 @@ export function Start() {
 
     submit.addEventListener("click", () => {
         if (isValid()) {
-            console.log("Valid");
             let gameServer = server.value + "/api";
             // If the game server doesn't start with http, we add it
             if (!gameServer.startsWith("http")) {
                 gameServer = "http://" + gameServer;
             }
-
-            console.log("Serveur: " + gameServer)
 
             const credentials = {
                 pseudo: pseudo.value,
@@ -109,7 +105,7 @@ export function Start() {
                     errorDisplay.innerText = "Une erreur est survenue lors de la connexion au serveur, veuillez regarder la console pour plus de détails";
                 });
         } else {
-            console.log("Invalid");
+            err("Les entrées sont invalides");
         }
     });
 }

@@ -56,10 +56,6 @@ class GameManager {
                     if(game.id == id) {
                         return [false, "Le jeu est déjà installé"];
                     }
-                    else
-                    {
-                        console.log(`${game.id} !== ${id}`)
-                    }
                 }
             }
 
@@ -83,7 +79,6 @@ class GameManager {
                 throw new Error("Impossible de récupérer les informations du jeu. Code d'erreur : " + response.status);
             }
             const data = await response.json();
-            console.log(data)
             const {id: gameId, executable, path, size, name} = data.game;
             const link = path;
 
@@ -175,10 +170,7 @@ class GameManager {
                             id: gameId,
                             path: executablePath,
                         });
-                        // write back to file
                         fs.writeFileSync(path, JSON.stringify(read));
-                        console.log(`Wrote ${read} to ${path}`)
-                        console.log("ok");
                     } else {
                         game.status = "error";
                         game.message = "Impossible de trouver le fichier de configuration";
@@ -308,8 +300,6 @@ function Start() {
         const read = JSON.parse(fs.readFileSync(path, 'utf8'));
         const {id, token, server} = read.credentials;
         const manager = new GameManager(id, token, server);
-
-        console.log(ipcMain.listenerCount("installGame"));
 
         ipcMain.removeHandler("installGame");
 

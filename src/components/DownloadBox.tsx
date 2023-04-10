@@ -1,6 +1,8 @@
 
 function getStateLabel(state: string) {
     switch (state) {
+        case 'starting':
+            return 'Début de l\'installation';
         case 'getting-info':
             return 'Récupération des infos';
         case 'error':
@@ -14,7 +16,7 @@ function getStateLabel(state: string) {
         case 'unzipping':
             return 'Décompression';
         default:
-            return 'Etat inconnu';
+            return 'État inconnu';
     }
 }
 

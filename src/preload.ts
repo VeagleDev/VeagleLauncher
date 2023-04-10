@@ -1,9 +1,7 @@
 const {ipcRenderer, contextBridge} = require('electron');
 
-console.log("preload.ts 👌");
-
-let installListener: any = () => {
-    console.log("Pas de listener d'installation")
+let installListener: any = (): undefined => {
+    return undefined;
 };
 
 setInterval(() => {
@@ -24,14 +22,17 @@ contextBridge.exposeInMainWorld('api', {
             try {
                 ipcRenderer.invoke('launchGame', game)
                     .then((res: any) => {
-                        console.log(res);
-                        resolve(res);
+                        if(!res)
+                            reject(new Error("Game not launched!"));
+                        else
+                            resolve(res);
                     })
                     .catch((err: any) => {
                         console.error(err);
                         reject(err);
                     });
             } catch (e) {
+                console.error(e);
                 reject(e);
             }
         });
@@ -41,7 +42,6 @@ contextBridge.exposeInMainWorld('api', {
             try {
                 ipcRenderer.invoke('installGame', game)
                     .then((res: any) => {
-                        console.log(res);
                         resolve(res);
                     })
                     .catch((err: any) => {
@@ -49,6 +49,7 @@ contextBridge.exposeInMainWorld('api', {
                         reject(err);
                     });
             } catch (e) {
+                console.error(e);
                 reject(e);
             }
         });

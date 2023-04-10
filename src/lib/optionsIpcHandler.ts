@@ -23,8 +23,6 @@ ipcMain.on('save-credentials', (event, credentials) => {
    }
 
    fs.writeFileSync(path, JSON.stringify(returnVal));
-   console.log("Saved credentials : " + JSON.stringify(returnVal) + " to " + path);
-
    const {Start} = require('./gamemanager');
    Start();
 

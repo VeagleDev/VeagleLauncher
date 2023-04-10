@@ -27,9 +27,6 @@ const Carousel = (props: any) => {
 
     data = filteredResources();
 
-
-    console.log(data);
-
     const maxScrollWidth = useRef(0);
     const [currentIndex, setCurrentIndex] = useState(0);
     const carousel = useRef(null);

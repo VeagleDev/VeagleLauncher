@@ -3,7 +3,6 @@ const end = "frontend"; // or "backend"
 
 declare const api: any;
 import {setOnSuccessfulLogin} from "./lib/login";
-import {Games, Login} from './page';
 import tryConnect from './lib/start';
 
 import React from 'react';
@@ -41,6 +40,5 @@ async function Run()
 }
 
 Run();
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
 

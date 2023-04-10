@@ -13,7 +13,7 @@ import {setGameInstalled} from "./Library";
 let latestNews:any = [];
 
 let percentage = 0;
-let step = "error";
+let step = "starting";
 
 function Game() {
     const location = useLocation()
@@ -46,6 +46,7 @@ function Game() {
                     step = game.status;
                     percentage = game.progress;
                     setProgress("enabled");
+
                 }
             }
             setInfos(latestNews);
@@ -106,31 +107,27 @@ function Game() {
                                     }
                                 }, 1000);
 
-                                console.log("Lancement de " + key.name);
                                 api.launchGame(key.id)
                                     .then((res: any) => {
-                                        console.log("Lancement terminé");
-                                        console.log(res);
                                         launchGame.style.filter = "none";
                                         launchGame.style.cursor = "pointer";
                                         launchGame.innerHTML = "Lancer";
                                         clearInterval(interval);
                                     })
                                     .catch((err: any) => {
-                                        console.log("Erreur lors du lancement");
+                                        launchGame.style.filter = "none";
+                                        launchGame.style.cursor = "pointer";
+                                        launchGame.innerHTML = "Erreur lors du lancement";
+                                        clearInterval(interval);
+                                        console.log("Erreur lors du lancement : ", err);
                                     });
                             }
                             else
                             {
-                                console.log("Téléchargement de " + key.name);
                                 setProgress("enabled");
 
-                                console.log("Début du téléchargement");
                                 api.installGame(key.id)
                                     .then((res: any) => {
-                                        console.log("Téléchargement terminé");
-                                        console.log(res);
-
                                         key.installed = true;
                                         setGameInstalled(key.id, true);
 
