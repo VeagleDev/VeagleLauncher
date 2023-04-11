@@ -239,7 +239,9 @@ class GameManager {
                     if(game.id == id)
                     {
                         const executable = game.path;
-                        const process = spawn(executable, [], {detached: true, stdio: 'ignore'});
+                        const lastAntiSlash = executable.lastIndexOf('\\');
+                        const runPath = executable.substring(0, lastAntiSlash);
+                        const process = spawn(executable, [], {detached: true, stdio: 'ignore', cwd: runPath});
 
                         process.on('error', () => {
                             status.status = "runerror";
