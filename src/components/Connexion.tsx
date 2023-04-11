@@ -1,6 +1,6 @@
 import bg from "../assets/img/fh5_template.jpg";
 import React, { Component, useState } from "react";
-import { Start } from "../lib/login";
+import { Start, onTheClick } from "../lib/login";
 
 export default class Connexion extends Component {
 
@@ -41,7 +41,7 @@ export default class Connexion extends Component {
                     <h2 className="text-black text-2xl font-extrabold mb-10">Connexion</h2>
                     <p className="font-normal text-[16px] text-black">
                         Pas encore membre ?
-                        <button className="text-blue ml-1 hover:underline">Contactez-nous</button>
+                        <button className="text-blue ml-1 hover:underline"><a href="mailto:contact@veagle.fr">Contactez-nous</a></button>
                     </p>
                     <div className={`
                 w-full mt-40 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] 
@@ -64,12 +64,12 @@ export default class Connexion extends Component {
                 after:origin-center after:transition-transform after:duration-200 after:bg-blue 
                 ${focusS && "after:scale-x-100"} ${!focusS && "after:scale-x-0"}`}>
                         <p className="font-normal text-[14px] opacity-80 text-black leading-none">Serveur</p>
-                        <input type="text" id="server" className="w-full border-b border-b-[#00000026] py-1" defaultValue="https://griff.veagle.fr" onFocus={() => { setFocusS(true) }} onBlur={() => { setFocusS(false) }} />
+                        <input type="text" id="server" className="w-full border-b border-b-[#00000026] py-1" defaultValue="https://launcher.veagle.fr" onFocus={() => { setFocusS(true) }} onBlur={() => { setFocusS(false) }} />
                     </div>
 
-                    <div id="errorDisplay" className="text-red-500 font-medium text-center mt-8"></div>
+                    <div id="errorDisplay" className="max-h-[70px] text-[#ff0000] font-small text-center mt-6 min-h-[70px] pb-[10px]" style={{overflow: "overlay"}}></div>
 
-                    <button id="submit" className="font-normal text-[14px] bg-blue w-full h-40 rounded-full mt-40 hover:bg-blue hover:bg-opacity-90" >Se connecter</button>
+                    <button onClick={onTheClick} id="submit" className="font-normal text-[14px] bg-blue w-full h-40 rounded-full hover:bg-blue hover:bg-opacity-90 " >Se connecter</button>
                 </div>
             </div>
         );
