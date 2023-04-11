@@ -186,6 +186,7 @@ class GameManager {
                         target: executablePath,
                         desc: "Griff : " + name,
                         icon: executablePath,
+                        workingDir: installPath
                     }, (err: any) => {
                         if (err) {
                             console.error(err);
