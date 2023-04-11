@@ -64,7 +64,7 @@ export default class Connexion extends Component {
                 after:origin-center after:transition-transform after:duration-200 after:bg-blue 
                 ${focusS && "after:scale-x-100"} ${!focusS && "after:scale-x-0"}`}>
                         <p className="font-normal text-[14px] opacity-80 text-black leading-none">Serveur</p>
-                        <input type="text" id="server" className="w-full border-b border-b-[#00000026] py-1" defaultValue="https://launcher.veagle.fr" onFocus={() => { setFocusS(true) }} onBlur={() => { setFocusS(false) }} />
+                        <input type="text" id="server" className="w-full border-b border-b-[#00000026] py-1" defaultValue="https://griff.veagle.fr" onFocus={() => { setFocusS(true) }} onBlur={() => { setFocusS(false) }} />
                     </div>
 
                     <div id="errorDisplay" className="max-h-[70px] text-[#ff0000] font-small text-center mt-6 min-h-[70px] pb-[10px]" style={{overflow: "overlay"}}></div>

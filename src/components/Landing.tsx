@@ -16,11 +16,11 @@ function Landing(props:any) {
                 <p className="w-paragraphe max-w-[700px] text-base">Forza Horizon 5 est un jeu de course en monde ouvert développé par Playground Games. Il prend place dans les villes et magnifiques décors du Mexique.</p>
                 
                 <div className="flex mt-40">
-                    <Link to="/Game" className="w-button h-50 flex items-center justify-center rounded-full bg-gradient-to-r from-orange to-dark-orange shadow-btn shadow-black mr-[20px]">
+                    <Link to={"/" /*/Game*/} className="w-button h-50 flex items-center justify-center rounded-full bg-gradient-to-r from-orange to-dark-orange shadow-btn shadow-black mr-[20px]">
                         <span>Télécharger</span>
                     </Link>
 
-                    <Link to="/Game" className="w-button h-50 flex items-center justify-center rounded-full border border-orange shadow-btn shadow-black backdrop-blur-sm">
+                    <Link to={"/" /*/Game*/} className="w-button h-50 flex items-center justify-center rounded-full border border-orange shadow-btn shadow-black backdrop-blur-sm">
                         <span>En savoir plus</span>
                     </Link>
                 </div>

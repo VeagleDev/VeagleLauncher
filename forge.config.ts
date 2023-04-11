@@ -20,6 +20,7 @@ const config: ForgeConfig = {
         InternalName: 'Griff',
     },
     asar: false,
+    appVersion: '1.1',
   },
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
