@@ -4,9 +4,9 @@ Griff Launcher
 Griff est un lanceur de jeu à bibliothèques privées créé par Griff. C'est une application Electron codée en TypeScript et utilisant React. Le projet est encore en développement et les Pull Requests ou suggestions sont les bienvenues!
 
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
-<img src="https://user-images.githubusercontent.com/83456236/231248378-34b38078-253e-42b8-b9ce-249d9d02a758.png"></img>
-<img src="https://user-images.githubusercontent.com/83456236/231248429-ccce33e9-4307-4163-9d6e-daaac8b57db7.png"></img>
-<img src="https://user-images.githubusercontent.com/83456236/231248587-5e625089-d817-44ea-aa90-b7017d6f909d.png"></img>
+<img src="https://user-images.githubusercontent.com/83456236/231248378-34b38078-253e-42b8-b9ce-249d9d02a758.png" width=300></img>
+<img src="https://user-images.githubusercontent.com/83456236/231248429-ccce33e9-4307-4163-9d6e-daaac8b57db7.png" width=300></img>
+<img src="https://user-images.githubusercontent.com/83456236/231248587-5e625089-d817-44ea-aa90-b7017d6f909d.png" width=300></img>
 </div>
 
 Installation
