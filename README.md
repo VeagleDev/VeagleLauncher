@@ -7,6 +7,8 @@ Griff est un lanceur de jeu à bibliothèques privées créé par Griff. C'est u
 <img src="https://user-images.githubusercontent.com/83456236/231248378-34b38078-253e-42b8-b9ce-249d9d02a758.png" width=300></img>
 <img src="https://user-images.githubusercontent.com/83456236/231248429-ccce33e9-4307-4163-9d6e-daaac8b57db7.png" width=300></img>
 <img src="https://user-images.githubusercontent.com/83456236/231248587-5e625089-d817-44ea-aa90-b7017d6f909d.png" width=300></img>
+<img src="https://user-images.githubusercontent.com/83456236/234874606-cdeff6d4-80f2-44fd-9771-6e6b91335167.png" width=300></img>
+
 </div>
 
 Installation
